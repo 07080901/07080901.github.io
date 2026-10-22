@@ -48,7 +48,10 @@
   color: var(--muted); text-decoration: none; transition: color .25s;
   svg { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
     transition: transform .4s var(--ease-out), fill .25s; }
-  span { color: inherit; }
+  // underlined so it reads as a link; the line turns blue with the text on hover
+  span { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em;
+    text-decoration-color: rgba(142, 164, 186, .55); transition: text-decoration-color .25s; }
+  &:hover span, &:focus-visible span { text-decoration-color: currentColor; }
   &:hover, &:focus-visible { color: var(--accent);
     svg { transform: translateY(-2px); fill: var(--accent-soft); } }
 }
