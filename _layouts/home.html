@@ -34,7 +34,7 @@ layout: default
 {%- for name in site.sections -%}
   {%- assign s = site.pages | where: "section", name | first -%}
   {%- if s -%}
-  <section class="section section--{{ name }}{% cycle '', ' section--alt' %}" id="{{ name }}" data-url="{{ s.url | relative_url }}" data-title="{{ s.title }} | {{ site.title }}">
+  <section class="section section--{{ name }}{% cycle '', ' section--alt' %}" id="{{ name }}" data-url="{{ s.url | relative_url }}" data-title="{{ s.title }} · {{ site.title }}">
     <div class="section__inner">
       <header class="section__head reveal">
         <h2 class="display">{{ s.title }}</h2>
