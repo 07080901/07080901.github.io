@@ -24,7 +24,7 @@
     var paths = $$('.intro__strokes path', intro);
     var lens = paths.map(function (p) { var l = p.getTotalLength(); p.style.setProperty('--len', l); p.style.strokeDashoffset = l; return l; });
     var total = lens.reduce(function (a, b) { return a + b; }, 0);
-    var start = null, done = false, fading = false;
+    var elapsed = 0, last = null, done = false, fading = false;
     var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
 
     var fade = function () {
@@ -35,8 +35,10 @@
     var complete = function () { done = true; paths.forEach(function (p) { p.style.strokeDashoffset = 0; }); };
     var frame = function (now) {
       if (done) return;
-      if (start === null) start = now;
-      var t = Math.min(1, (now - start) / DRAW_MS), drawn = easeOut(t) * total, acc = 0;
+      // count only time the tab was on screen: a long gap (tab hidden) adds one frame at most
+      if (last !== null) elapsed += Math.min(now - last, 50);
+      last = now;
+      var t = Math.min(1, elapsed / DRAW_MS), drawn = easeOut(t) * total, acc = 0;
       for (var i = 0; i < paths.length; i++) {
         paths[i].style.strokeDashoffset = lens[i] - Math.max(0, Math.min(lens[i], drawn - acc));
         acc += lens[i];
@@ -44,14 +46,24 @@
       if (t < 1) requestAnimationFrame(frame);
       else { complete(); setTimeout(fade, HOLD_MS); }
     };
+    // Start only once the logo has loaded AND the tab is actually on screen,
+    // so a site opened in a background tab waits for you.
+    var loaded = false, begun = false;
+    var safety = function () { if (document.hidden) setTimeout(safety, 1000); else finishIntro(); };
+    var begin = function () {
+      if (begun || !loaded || document.hidden) return;
+      begun = true;
+      requestAnimationFrame(frame);
+      setTimeout(safety, 6000);   // safety net, never fires while the tab is hidden
+    };
     var img = new Image();
-    img.onload = img.onerror = function () { requestAnimationFrame(frame); };
+    img.onload = img.onerror = function () { loaded = true; begin(); };
     img.src = $('image', intro).getAttribute('href');
+    document.addEventListener('visibilitychange', begin);
 
     var skip = function () { complete(); fade(); };
     intro.addEventListener('click', skip);
     document.addEventListener('keydown', function onKey() { skip(); document.removeEventListener('keydown', onKey); });
-    setTimeout(finishIntro, 6000); // safety net
   } else {
     root.classList.add('intro-done');
   }
