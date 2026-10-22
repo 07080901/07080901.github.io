@@ -102,9 +102,13 @@
     var current = location.pathname;
     var locked = false, unlockTimer;
 
+    // While Live! is the current section the header's social icons fold away
+    // (same html.social-tucked as on release pages; #live's scroll-margin in _home.scss matches)
+    var TUCK_SECTION = 'live';
     var mark = function (el) {
       if (el.dataset.title) document.title = el.dataset.title;
       navLinks.forEach(function (a) { a.classList.toggle('is-active', a.dataset.path === el.dataset.url); });
+      root.classList.toggle('social-tucked', el.id === TUCK_SECTION);
     };
     var jump = function (el, smooth) {
       var behavior = smooth && !reduced ? 'smooth' : 'auto';
@@ -125,6 +129,7 @@
     // open /music/, /live/ … already scrolled to their section
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     var startEl = byName[onepage.dataset.start];
+    if (startEl) root.classList.toggle('social-tucked', startEl.id === TUCK_SECTION);
     if (startEl && startEl.id !== 'home') requestAnimationFrame(function () { jump(startEl, false); });
 
     // menu, logo, hero button, scroll cue
@@ -177,7 +182,8 @@
         var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
         var max = document.documentElement.scrollHeight - window.innerHeight;
         return sections.map(function (s) {
-          var y = s.id === 'home' ? 0 : s.getBoundingClientRect().top + window.scrollY - pad;
+          var margin = parseFloat(getComputedStyle(s).scrollMarginTop) || 0;
+          var y = s.id === 'home' ? 0 : s.getBoundingClientRect().top + window.scrollY - pad - margin;
           return Math.max(0, Math.min(max, Math.round(y)));
         });
       };

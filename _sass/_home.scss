@@ -66,6 +66,9 @@
 .section { padding: clamp(26px, 3.2vw, 42px) var(--gutter) clamp(72px, 9vw, 110px); }
 .section--alt { background: var(--bg-2); }
 .section__inner { max-width: var(--max); margin: 0 auto; }
+// Live!: the social icons fold away there (main.js), so the header is shorter
+// by --social-h; land that much higher so the title still sits just under it
+#live { scroll-margin-top: calc(-1 * var(--social-h)); }
 .section__head { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 28px; }
 .section__sub { margin: 10px 0 0; color: var(--muted); letter-spacing: .16em; text-transform: uppercase; font-size: .78rem; }
 
