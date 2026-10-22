@@ -111,7 +111,8 @@
 // big title has scrolled away (.has-title). Both set in main.js.
 .rel-bar {
   position: sticky; top: var(--header-h); z-index: 50; padding: 14px var(--gutter);
-  border-bottom: 1px solid transparent; transition: background .35s, border-color .35s;
+  border-bottom: 1px solid transparent; transition: top .45s var(--ease-out), background .35s, border-color .35s;
+  .social-tucked & { top: var(--bar-h); }   // follows the header up when the icons fold away
   &.is-stuck { background: rgba(7, 12, 20, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: var(--line); }
 }
 .rel-bar__inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
