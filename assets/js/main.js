@@ -151,12 +151,15 @@
     /* Section magnet: scroll freely; once you've scrolled about 3 wheel steps
        into the next (or previous) section and pause, the page glides the rest
        of the way to its start. Any wheel / touch / key during the glide hands
-       control straight back. Long sections can still be read freely. */
+       control straight back. Long sections can still be read freely.
+       Scrolling back up inside the section you were reading never snaps;
+       it only pulls once you have crossed into the section above. */
     if (!reduced) {
       var STEP = 100;          // ≈ one mouse-wheel notch, in px
       var PULL = 3 * STEP;     // how far into the next section before it pulls
       var IDLE_MS = 180;       // pause that counts as "stopped scrolling"
       var restY = window.scrollY, intent = false, pressed = false, gliding = false, idleTimer, raf;
+      var upFrom = null;       // section you were in when you started scrolling up
 
       var points = function () {   // scroll positions where each section starts
         var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
@@ -169,7 +172,7 @@
       var stopGlide = function () {
         if (!gliding) return;
         gliding = false; cancelAnimationFrame(raf); root.style.scrollBehavior = '';
-        restY = window.scrollY;
+        restY = window.scrollY; upFrom = null;
       };
       var glide = function (to) {
         var from = window.scrollY, dist = to - from, t0 = null;
@@ -187,18 +190,24 @@
       };
       var settle = function () {
         var y = window.scrollY, moved = y - restY;
+        if (locked) upFrom = null;
         if (locked || pressed || !intent || Math.abs(moved) < 10) { restY = y; intent = false; return; }
         intent = false;
         var p = points(), vh = window.innerHeight;
         var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
         var next = p.filter(function (v) { return v > y + 2; })[0];        // start of the section below
         var prev = p.filter(function (v) { return v < y - 2; }).pop();      // start of the section we're in
+        var sectionAt = function (pos) { var i = -1; p.forEach(function (v, k) { if (v <= pos + 2) i = k; }); return i; };
         var target = null;
         if (moved > 0) {
+          upFrom = null;
           // going down: the next section has risen ~3 steps above the bottom edge
           if (next !== undefined && next - y <= vh - pad - PULL) target = next;
-        } else if (prev !== undefined) {
-          // going up: we're near the start of this section, or ~3 steps into a short one from below
+        } else if (upFrom === null) {
+          upFrom = sectionAt(restY);
+        }
+        if (moved < 0 && prev !== undefined && sectionAt(y) !== upFrom) {
+          // going up, now in the section above: near its start, or ~3 steps into a short one from below
           var nearStart = y - prev <= PULL;
           var fromBelow = next === undefined || next - y >= PULL;
           if (nearStart || (fromBelow && y - prev <= vh * 1.2)) target = prev;

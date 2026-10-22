@@ -33,11 +33,17 @@
 .scroll-up .nav__link.is-active::after { transform-origin: right; }
 .nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-// Logo: no zoom; on hover it dims lightly for half a second, then comes back
-.logo { display: block; line-height: 0; }
+// Logo: a light maya-blue tint while hovered. The tint is the accent colour cut
+// to the logo's own shape (--logo-mask, set in header.html), so any PNG works.
+.logo { position: relative; display: block; line-height: 0; }
 .logo img { height: 72px; width: auto; }
-.logo:hover img, .logo:focus-visible img { animation: logo-dim .5s ease-in-out; }
-@keyframes logo-dim { 45% { opacity: .62; } }
+.logo::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: var(--accent); opacity: 0; transition: opacity .35s var(--ease-out);
+  -webkit-mask: var(--logo-mask) center / 100% 100% no-repeat;
+          mask: var(--logo-mask) center / 100% 100% no-repeat;
+}
+.logo:hover::after, .logo:focus-visible::after { opacity: .55; }
 
 .site-header__social {
   height: var(--social-h); display: flex; justify-content: center; align-items: flex-start;
