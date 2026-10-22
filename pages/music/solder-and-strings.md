@@ -26,6 +26,15 @@ links:
     url: "https://music.apple.com/"
   - name: SoundCloud
     url: "https://soundcloud.com/"
+# ------------------------------------------------------------------
+# MUSIC SECTION CARD — optional. Without it the card shows the first 3
+# links above. To choose, list names from links: and/or add card-only links:
+# card_links:
+#   - Spotify
+#   - YouTube
+#   - name: "Pre-save"
+#     url: "https://example.com/"
+# ------------------------------------------------------------------
 ---
 
 ## Why this one

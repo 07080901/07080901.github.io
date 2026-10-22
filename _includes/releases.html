@@ -1,6 +1,12 @@
 {%- comment -%}
   Release cards: one per file in pages/music/, newest first.
   Cover and title open the release page. Param: limit (optional).
+  Card links come from that release's own links: (its "Listen on" list),
+  so every URL is written once. The first 3 show, unless the release file
+  has card_links:, where each line is either
+    - Spotify                 → the Spotify link from links:
+    - name: Pre-save          → a link only for the card
+      url: "https://…"
 {%- endcomment -%}
 {%- assign releases = site.pages | where_exp: "p", "p.path contains 'pages/music/'" | sort: "date" | reverse -%}
 <ul class="releases" role="list">
@@ -11,7 +17,14 @@
     <p class="release__type">{{ r.type }} · {{ r.date | date: '%Y' }}</p>
     <h3 class="release__title"><a href="{{ href }}">{{ r.title }}</a></h3>
     <div class="release__links">
-      {%- for l in r.links limit: 3 %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endfor -%}
+      {%- if r.card_links -%}
+        {%- for c in r.card_links -%}
+          {%- if c.url -%}{%- assign l = c -%}{%- else -%}{%- assign l = r.links | where: "name", c | first -%}{%- endif -%}
+          {%- if l %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for l in r.links limit: 3 %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endfor -%}
+      {%- endif -%}
     </div>
   </li>
   {%- endfor -%}
