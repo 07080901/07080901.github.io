@@ -1,6 +1,6 @@
 # Ben — artist website template (Jekyll)
 
-A Jekyll site for **Andrea "Ben" Benini** with an animated intro (the name is hand-drawn, a guitar string snaps across, then the curtain lifts), a full-screen hero slideshow, news, tour dates, videos, music, timeline and shop. It started from [jekyll-theme-console](https://github.com/b2a3e8/jekyll-theme-console) (MIT, see `LICENSE.txt`), was stripped down and rebuilt. All images are placeholders labelled **REPLACE**.
+A Jekyll site for **Andrea "Ben" Benini** with an animated intro (the name is hand-drawn, a guitar string snaps across, then the curtain lifts), a full-screen hero slideshow, news, tour dates, videos, music, timeline and shop. It started from [jekyll-theme-console](https://github.com/b2a3e8/jekyll-theme-console) (MIT, see `LICENSE.txt`), was stripped down and rebuilt. All images are placeholders labelled **REPLACE**!
 
 ## Publish on GitHub Pages (no install needed)
 
