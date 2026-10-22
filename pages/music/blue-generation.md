@@ -1,8 +1,8 @@
 ---
-# RELEASE PAGE  →  /music/blue-generation/  (the address comes from the file name)
+# RELEASE PAGE  →  /music/blue-generation  (the address comes from the file name)
 title: "Blue Generation"
 type: "Demo"
-date: 08/03/2025          # release date (DD/MM/YYYY): sets the order on /music/
+date: 08/03/2025          # release date (DD/MM/YYYY): sets the order on /music
 cover: /assets/img/music/cover-3.svg   # square image (1000x1000 JPG works best)
 # ------------------------------------------------------------------
 # TRACKLIST — one line per song, in order. length is optional.

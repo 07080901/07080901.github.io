@@ -70,6 +70,8 @@
 // by --social-h; land that much higher so the title still sits just under it
 #live { scroll-margin-top: calc(-1 * var(--social-h)); }
 .section__head { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 28px; }
+// Live! heading in fluorescent yellow (only the section title, not the menu)
+.section--live .section__head .display { color: #e6ff2e; text-shadow: 0 0 30px rgba(230, 255, 46, .28); }
 .section__sub { margin: 10px 0 0; color: var(--muted); letter-spacing: .16em; text-transform: uppercase; font-size: .78rem; }
 
 // Mailing list

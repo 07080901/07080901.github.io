@@ -1,8 +1,8 @@
 ---
-# RELEASE PAGE  →  /music/stank-face/  (the address comes from the file name)
+# RELEASE PAGE  →  /music/stank-face  (the address comes from the file name)
 title: "Stank Face"
 type: "Single"
-date: 15/05/2026          # release date (DD/MM/YYYY): sets the order on /music/
+date: 15/05/2026          # release date (DD/MM/YYYY): sets the order on /music
 cover: /assets/img/music/cover-1.svg   # square image (1000x1000 JPG works best)
 # ------------------------------------------------------------------
 # TRACKLIST — one line per song, in order. length is optional.

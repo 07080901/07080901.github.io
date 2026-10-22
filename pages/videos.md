@@ -2,7 +2,7 @@
 layout: home     # same one-page layout; opens scrolled to this section
 section: videos
 title: Videos
-permalink: /videos/
+permalink: /videos
 subtitle: "Placeholder videos: swap in your own"
 # ------------------------------------------------------------------
 # VIDEOS — youtube_id is the part after "watch?v=" (or after youtu.be/)

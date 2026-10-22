@@ -2,7 +2,7 @@
 layout: home     # same one-page layout; opens scrolled to this section
 section: about
 title: About
-permalink: /about/
+permalink: /about
 subtitle: "Blues · Funk · Make guitar mainstream again"
 portrait: /assets/img/about/portrait.svg   # your photo (portrait, ~900x1200)
 ---

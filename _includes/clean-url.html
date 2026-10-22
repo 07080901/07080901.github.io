@@ -1,0 +1,3 @@
+{%- comment -%} Prints a site address without its ending "/" (the home page stays "/"). Param: url {%- endcomment -%}
+{%- assign _url = include.url | relative_url -%}
+{%- if _url == "/" -%}/{%- else -%}{{ _url | append: "#" | replace: "/#", "" | remove: "#" }}{%- endif -%}

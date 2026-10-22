@@ -3,6 +3,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070c14">
   <script>document.documentElement.classList.remove('no-js');</script>
+  {%- if page.url == "/404.html" %}
+  <script>
+    /* old links ending in "/" (e.g. /live/) → same address without it.
+       Tried once per address, so a server folder (which GitHub sends back
+       with the "/") can't bounce forever. */
+    (function (p) {
+      if (p.length < 2 || p.slice(-1) !== '/') return;
+      try { var k = 'slash:' + p; if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { return; }
+      location.replace(p.replace(/\/+$/, '') + location.search + location.hash);
+    })(location.pathname);
+  </script>
+  {%- endif %}
   <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
   {%- seo title=false -%}
   <link rel="icon" href="{{ '/assets/img/favicon.png' | relative_url }}" type="image/png">

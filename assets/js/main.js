@@ -8,6 +8,13 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Addresses never end in "/" ----------
+     /music is a folder on the server (it holds the release pages), so it
+     arrives as /music/; drop the slash from the address bar. */
+  if (location.pathname.length > 1 && location.pathname.slice(-1) === '/') {
+    history.replaceState(history.state, '', location.pathname.replace(/\/+$/, '') + location.search + location.hash);
+  }
+
   /* ---------- Intro: one quick pencil pass, then fade ---------- */
   var DRAW_MS = 1300;   // drawing time
   var HOLD_MS = 200;    // pause on the finished logo
@@ -126,7 +133,7 @@
       unlockTimer = setTimeout(function () { locked = false; }, 1100);
     };
 
-    // open /music/, /live/ … already scrolled to their section
+    // open /music, /live … already scrolled to their section
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     var startEl = byName[onepage.dataset.start];
     if (startEl) root.classList.toggle('social-tucked', startEl.id === TUCK_SECTION);

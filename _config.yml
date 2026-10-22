@@ -25,17 +25,17 @@ intro:
 # Clicking a link scrolls the home page to that section.
 nav_left:
   - title: Music
-    url: /music/
+    url: /music
     section: music
   - title: Live!
-    url: /live/
+    url: /live
     section: live
 nav_right:
   - title: Videos
-    url: /videos/
+    url: /videos
     section: videos
   - title: About
-    url: /about/
+    url: /about
     section: about
 
 # --- Order of the sections on the home page (top to bottom) ----
@@ -79,12 +79,13 @@ defaults:
       path: ""
     values:
       image: /assets/img/og-image.jpg   # picture shown when the site is shared
-  # Every file in pages/music/ is a release page: pages/music/stank-face.md → /music/stank-face/
+  # Every file in pages/music/ is a release page: pages/music/stank-face.md → /music/stank-face
+  # (addresses never end in "/": the page is saved as music/stank-face.html)
   - scope:
       path: "pages/music"
     values:
       layout: release
-      permalink: /music/:basename/
+      permalink: /music/:basename
       nav: music
 twitter:
   card: summary_large_image

@@ -2,7 +2,7 @@
 layout: home     # same one-page layout; opens scrolled to this section
 section: live
 title: "Live!"
-permalink: /live/
+permalink: /live
 subtitle: "Pubs, clubs & jam nights"
 # ------------------------------------------------------------------
 # GIGS — add a new block for every show. Order doesn't matter.
