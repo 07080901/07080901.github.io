@@ -144,7 +144,7 @@
 // Listen on: narrower than the rest and centred on the page
 .rel__listen { max-width: 480px; margin-left: auto; margin-right: auto;
   scroll-margin-top: 96px;   // land below the sticky bar, not under it
-  .list-title { text-align: center; font-size: 1.1rem; margin-bottom: 14px; } }
+  .list-title { text-align: center; font-size: 1rem; margin-bottom: 14px; } }
 
 // Tracklist: number · title · length · play
 .tracks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
