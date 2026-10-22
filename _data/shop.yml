@@ -1,0 +1,15 @@
+# Shop teaser on the home page (3 items look best). Links go to your store.
+- title: "Loud & Low — Vinyl"
+  price: "€25"
+  image: /assets/img/shop/item-1.svg
+  url: "https://example.com/shop"
+
+- title: "Fuzz Logo T-Shirt"
+  price: "€22"
+  image: /assets/img/shop/item-2.svg
+  url: "https://example.com/shop"
+
+- title: "Guitar Pick Tin"
+  price: "€10"
+  image: /assets/img/shop/item-3.svg
+  url: "https://example.com/shop"

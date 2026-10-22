@@ -1,0 +1,20 @@
+<section class="mailing reveal" id="mailing-list">
+  <div class="mailing__inner">
+    <h2 class="display">{{ site.mailing_list.heading }}</h2>
+    <p>{{ site.mailing_list.text }}</p>
+    {%- if site.mailing_list.action != "" -%}
+    <form class="mailing__form" action="{{ site.mailing_list.action }}" method="post" target="_blank">
+      <label class="sr-only" for="ml-email">Email address</label>
+      <input id="ml-email" type="email" name="{{ site.mailing_list.email_field_name }}" placeholder="Your email" required autocomplete="email">
+      <button class="btn" type="submit">Sign up</button>
+    </form>
+    {%- else -%}
+    <form class="mailing__form" onsubmit="event.preventDefault(); this.querySelector('.mailing__note').hidden=false;">
+      <label class="sr-only" for="ml-email">Email address</label>
+      <input id="ml-email" type="email" placeholder="Your email" required autocomplete="email">
+      <button class="btn" type="submit">Sign up</button>
+      <p class="mailing__note" hidden>Sign-ups open soon — check back!</p>
+    </form>
+    {%- endif -%}
+  </div>
+</section>

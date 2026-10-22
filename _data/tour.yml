@@ -1,0 +1,44 @@
+# Shows. Order doesn't matter — they're sorted by date.
+# Past dates move to "Past shows" automatically on the next build.
+# tickets: link (omit for free shows) · sold_out: true · note: optional extra line
+
+- date: 2026-11-14
+  venue: "Placeholder Club"
+  city: "Bologna"
+  country: "Italy"
+  tickets: "https://example.com/tickets"
+
+- date: 2026-11-21
+  venue: "The Basement"
+  city: "Milano"
+  country: "Italy"
+  tickets: "https://example.com/tickets"
+  note: "With special guests"
+
+- date: 2026-12-05
+  venue: "Sala Grande"
+  city: "Firenze"
+  country: "Italy"
+  sold_out: true
+
+- date: 2027-01-16
+  venue: "Blue Room"
+  city: "Roma"
+  country: "Italy"
+  tickets: "https://example.com/tickets"
+
+- date: 2027-02-12
+  venue: "Kellerbar"
+  city: "Berlin"
+  country: "Germany"
+  tickets: "https://example.com/tickets"
+
+- date: 2027-02-14
+  venue: "Corner Stage"
+  city: "London"
+  country: "United Kingdom"
+
+- date: 2026-06-20
+  venue: "Summer Fest"
+  city: "Torino"
+  country: "Italy"

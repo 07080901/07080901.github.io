@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{%- include hero.html -%}
+
+{%- assign tl_image = site.data.home.timeline_image | default: '/assets/img/timeline/band.svg' -%}
+<section class="band reveal" style="--img: url('{{ tl_image | relative_url }}')">
+  <div class="band__inner">
+    <h2 class="display">{{ site.home.timeline_heading }}</h2>
+    <a class="btn" href="{{ '/timeline/' | relative_url }}">{{ site.home.timeline_button }}</a>
+  </div>
+</section>
+
+{%- include mailing-list.html -%}
+
+<section class="section reveal">
+  <header class="section__head">
+    <h2 class="display">{{ site.home.news_heading }}</h2>
+    <a class="link-arrow" href="{{ '/news/' | relative_url }}">All news</a>
+  </header>
+  {%- include news-carousel.html limit=6 -%}
+</section>
+
+<section class="section section--tour reveal" style="--img: url('{{ '/assets/img/hero/tour-bg.svg' | relative_url }}')">
+  <header class="section__head">
+    <h2 class="display">{{ site.home.tour_heading }}</h2>
+    <a class="link-arrow" href="{{ '/tour/' | relative_url }}">All dates</a>
+  </header>
+  {%- include tour-list.html limit=site.home.tour_limit -%}
+</section>
+
+{%- assign featured = site.data.videos | where: "featured", true | first | default: site.data.videos[0] -%}
+<section class="section section--video reveal">
+  <header class="section__head section__head--center">
+    <h2 class="display">{{ site.home.video_heading }}</h2>
+  </header>
+  {%- include video.html video=featured -%}
+  <p class="center"><a class="btn" href="{{ '/videos/' | relative_url }}">{{ site.home.video_button }}</a></p>
+</section>
+
+{%- if site.home.shop_enabled -%}
+<section class="section reveal">
+  <header class="section__head">
+    <h2 class="display">{{ site.home.shop_heading }}</h2>
+  </header>
+  <ul class="shop-grid" role="list">
+    {%- for p in site.data.shop -%}
+    <li class="product">
+      <a href="{{ p.url }}" target="_blank" rel="noopener" class="product__img"><img src="{{ p.image | relative_url }}" alt="" loading="lazy"></a>
+      <h3 class="product__title">{{ p.title }}</h3>
+      <p class="product__price">{{ p.price }}</p>
+      <a class="btn btn--small" href="{{ p.url }}" target="_blank" rel="noopener">Buy</a>
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- assign shop = site.nav | where: "title", "Shop" | first -%}
+  {%- if shop -%}<p class="center"><a class="btn btn--ghost" href="{{ shop.url }}" target="_blank" rel="noopener">View all</a></p>{%- endif -%}
+</section>
+{%- endif -%}

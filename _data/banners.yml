@@ -1,0 +1,27 @@
+# Hero slideshow on the home page (top to bottom = slide order).
+# image: 1920x1080 or larger works best. Any field except image is optional.
+# button_url: an internal path (/tour/) or a full https:// link.
+
+- image: /assets/img/hero/slide-1.svg
+  alt: "Ben on stage"
+  kicker: "New single"
+  title: "Loud & Low"
+  text: "Placeholder release blurb — swap in your own single, EP or album."
+  button_text: "Listen now"
+  button_url: https://open.spotify.com/
+
+- image: /assets/img/hero/slide-2.svg
+  alt: "Crowd at a club show"
+  kicker: "On the road"
+  title: "Live 2027"
+  text: "Clubs, festivals and a couple of basements. Dates added every month."
+  button_text: "Tickets & info"
+  button_url: /tour/
+
+- image: /assets/img/hero/slide-3.svg
+  alt: "Guitar close-up"
+  kicker: "Watch"
+  title: "Live in the Garage"
+  text: "Full session, one take, no overdubs."
+  button_text: "Watch the video"
+  button_url: /videos/

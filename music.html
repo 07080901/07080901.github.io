@@ -1,0 +1,24 @@
+---
+layout: page
+title: Music
+subtitle: Records, EPs & live
+permalink: /music/
+wide: true
+---
+{%- assign labels = "spotify:Spotify,apple:Apple Music,bandcamp:Bandcamp,youtube:YouTube,deezer:Deezer,tidal:Tidal" | split: "," -%}
+<ul class="releases" role="list">
+  {%- for r in site.data.releases -%}
+  <li class="release reveal">
+    <div class="release__cover"><img src="{{ r.cover | relative_url }}" alt="{{ r.title }} cover" loading="lazy"></div>
+    <p class="release__type">{{ r.type }} · {{ r.year }}</p>
+    <h3 class="release__title">{{ r.title }}</h3>
+    <div class="release__links">
+      {%- for l in labels -%}
+        {%- assign kv = l | split: ":" -%}
+        {%- assign key = kv[0] -%}{%- assign link = r.links[key] -%}
+        {%- if link -%}<a class="btn btn--small btn--ghost" href="{{ link }}" target="_blank" rel="noopener">{{ kv[1] }}</a>{%- endif -%}
+      {%- endfor -%}
+    </div>
+  </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,45 @@
+{%- comment -%}
+  Shows from _data/tour.yml. Dates already past at build time are hidden here
+  (the Tour page lists them under "Past shows"). GitHub Pages rebuilds on every
+  push, so push any change now and then to refresh the list.
+  Params: limit (number), past (true to list past shows instead)
+{%- endcomment -%}
+{%- assign now = site.time | date: '%Y%m%d' | plus: 0 -%}
+{%- assign shows = site.data.tour | sort: 'date' -%}
+{%- if include.past -%}{%- assign shows = shows | reverse -%}{%- endif -%}
+{%- assign count = 0 -%}
+<ul class="tour-list" role="list">
+{%- for s in shows -%}
+  {%- assign d = s.date | date: '%Y%m%d' | plus: 0 -%}
+  {%- if include.past -%}{%- if d >= now -%}{%- continue -%}{%- endif -%}
+  {%- else -%}{%- if d < now -%}{%- continue -%}{%- endif -%}{%- endif -%}
+  {%- if include.limit and count >= include.limit -%}{%- break -%}{%- endif -%}
+  {%- assign count = count | plus: 1 -%}
+  <li class="show">
+    <time class="show__date" datetime="{{ s.date | date: '%Y-%m-%d' }}">
+      <span class="show__dow">{{ s.date | date: '%a' }}</span>
+      <span class="show__day">{{ s.date | date: '%-d' }}</span>
+      <span class="show__mon">{{ s.date | date: '%b %Y' }}</span>
+    </time>
+    <div class="show__venue">
+      <strong>{{ s.venue }}</strong>
+      <span>{{ s.city }}{% if s.country %}, {{ s.country }}{% endif %}</span>
+      {%- if s.note %}<em>{{ s.note }}</em>{% endif -%}
+    </div>
+    <div class="show__cta">
+      {%- if include.past -%}
+        <span class="tag">Played</span>
+      {%- elsif s.sold_out -%}
+        <span class="tag tag--out">Sold out</span>
+      {%- elsif s.tickets -%}
+        <a class="btn btn--small" href="{{ s.tickets }}" target="_blank" rel="noopener">Tickets</a>
+      {%- else -%}
+        <span class="tag">Free entry</span>
+      {%- endif -%}
+    </div>
+  </li>
+{%- endfor -%}
+</ul>
+{%- if count == 0 -%}
+<p class="empty">{% if include.past %}No past shows listed yet.{% else %}No upcoming shows right now — join the mailing list to hear first.{% endif %}</p>
+{%- endif -%}

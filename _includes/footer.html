@@ -1,0 +1,12 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <a class="site-footer__logo" href="{{ '/' | relative_url }}">{{ site.logo_text }}</a>
+    {%- include social.html -%}
+    <ul class="site-footer__links" role="list">
+      {%- for l in site.footer_links -%}
+        <li><a href="{{ l.url | relative_url }}">{{ l.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+    <p class="site-footer__copy">&copy; {{ site.time | date: '%Y' }} {{ site.artist_name }}. All rights reserved.</p>
+  </div>
+</footer>

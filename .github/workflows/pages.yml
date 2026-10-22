@@ -1,0 +1,50 @@
+# Builds the site with the same Jekyll setup GitHub Pages uses by default,
+# but with up-to-date actions that run on Node 24 (no deprecation warnings).
+# Requires: Settings → Pages → Build and deployment → Source = "GitHub Actions".
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # "Run workflow" button in the Actions tab
+  schedule:
+    - cron: "17 3 * * *"    # daily rebuild (03:17 UTC) so past tour dates move to "Past shows"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

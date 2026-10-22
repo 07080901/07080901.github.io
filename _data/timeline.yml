@@ -1,0 +1,35 @@
+# Timeline page. Each era becomes a tab; events show in order.
+# image is optional.
+
+- era: "Early days"
+  id: early
+  events:
+    - year: "2010"
+      title: "First guitar"
+      text: "Placeholder: the story of the first guitar, the first riff, the first broken string."
+      image: /assets/img/timeline/t-1.svg
+    - year: "2014"
+      title: "First band"
+      text: "Placeholder: garage punk with friends, gigs in tiny bars."
+
+- era: "Finding the sound"
+  id: sound
+  events:
+    - year: "2018"
+      title: "Blues meets funk"
+      text: "Placeholder: discovering slide guitar, horn sections and the groove."
+      image: /assets/img/timeline/t-2.svg
+    - year: "2021"
+      title: "First tour"
+      text: "Placeholder: a van, ten cities, one amp that kept dying."
+
+- era: "Now"
+  id: now
+  events:
+    - year: "2024"
+      title: "Debut album"
+      text: "Placeholder: “Three Chords, Too Fast” is released."
+    - year: "2026"
+      title: "Loud & Low"
+      text: "Placeholder: the new single and the biggest run of dates yet."
+      image: /assets/img/timeline/t-3.svg

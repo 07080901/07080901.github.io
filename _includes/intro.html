@@ -1,0 +1,17 @@
+{%- comment -%}
+  Intro: black screen → name is "written" stroke by stroke → it fills in,
+  the tagline types out, a string-pluck line snaps across, then the curtain
+  lifts to reveal the page. Click / tap / any key skips it.
+  Timings live in _sass/_intro.scss.
+{%- endcomment -%}
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__noise"></div>
+  <div class="intro__stage">
+    <svg class="intro__logo" viewBox="0 0 600 260" role="img" aria-label="{{ site.logo_text }}">
+      <text x="50%" y="58%" text-anchor="middle" dominant-baseline="middle" class="intro__word">{{ site.logo_text }}</text>
+    </svg>
+    <div class="intro__string"><span></span></div>
+    <p class="intro__sub">{{ site.intro.subtitle }}</p>
+  </div>
+  <button class="intro__skip" type="button" tabindex="-1">Skip</button>
+</div>

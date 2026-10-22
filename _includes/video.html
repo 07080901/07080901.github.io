@@ -1,0 +1,14 @@
+{%- comment -%}
+  Lightweight YouTube embed: shows the poster image, loads the player only on
+  click (faster page, no YouTube cookies until then). Param: video
+{%- endcomment -%}
+{%- assign v = include.video -%}
+{%- if v -%}
+<figure class="video">
+  <button class="video__poster" type="button" data-youtube="{{ v.youtube_id }}" aria-label="Play video: {{ v.title }}">
+    <img src="{{ v.thumbnail | default: '/assets/img/videos/video-1.svg' | relative_url }}" alt="" loading="lazy">
+    <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+  </button>
+  <figcaption class="video__caption">{{ v.title }}{% if v.year %} <span>· {{ v.year }}</span>{% endif %}</figcaption>
+</figure>
+{%- endif -%}

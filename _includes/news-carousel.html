@@ -1,0 +1,12 @@
+<div class="carousel" data-carousel>
+  <ul class="carousel__track news-grid" role="list">
+    {%- for post in site.posts limit: include.limit -%}
+      <li>{%- include news-card.html post=post -%}</li>
+    {%- endfor -%}
+  </ul>
+  <div class="carousel__nav">
+    <button class="carousel__btn" data-dir="-1" aria-label="Previous">&larr;</button>
+    <span class="carousel__count"><span data-current>1</span> / <span data-total>1</span></span>
+    <button class="carousel__btn" data-dir="1" aria-label="Show next">&rarr;</button>
+  </div>
+</div>

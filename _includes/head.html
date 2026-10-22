@@ -1,0 +1,35 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0a09">
+  <script>document.documentElement.classList.remove('no-js');</script>
+  {%- seo -%}
+  {%- feed_meta -%}
+  <link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
+  {%- assign v = site.time | date: '%s' -%}
+  <link rel="preload" href="{{ '/assets/fonts/space-grotesk-latin-wght-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/anton-latin-400-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  {%- if page.layout == 'home' and site.intro.enabled %}
+  <link rel="preload" href="{{ '/assets/fonts/permanent-marker-latin-400-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  {%- assign first_slide = site.data.banners | first -%}
+  {%- if first_slide %}
+  <link rel="preload" href="{{ first_slide.image | relative_url }}" as="image" fetchpriority="high">
+  {%- endif -%}
+  {%- endif %}
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ v }}">
+  {%- if page.layout == 'home' and site.intro.enabled -%}
+  <script>
+    /* Decide before first paint whether the intro plays, so it never flashes. */
+    (function () {
+      var d = document.documentElement, play = true;
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) play = false;
+        {%- if site.intro.once_per_session %}
+        if (sessionStorage.getItem('introSeen')) play = false;
+        {%- endif %}
+      } catch (e) {}
+      d.classList.add(play ? 'intro-play' : 'intro-skip');
+    })();
+  </script>
+  {%- endif -%}
+</head>

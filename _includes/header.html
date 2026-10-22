@@ -1,0 +1,39 @@
+<header class="site-header" id="site-header">
+  <div class="site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav nav--left" aria-label="Primary">
+      {%- assign half = site.nav.size | divided_by: 2 | plus: 0 -%}
+      {%- for item in site.nav limit: half -%}
+        {%- include nav-link.html item=item -%}
+      {%- endfor -%}
+    </nav>
+
+    <a class="logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} — home">
+      {%- if site.logo_image != "" -%}
+        <img src="{{ site.logo_image | relative_url }}" alt="{{ site.title }}">
+      {%- else -%}
+        <span class="logo__text" data-text="{{ site.logo_text }}">{{ site.logo_text }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="nav nav--right" aria-label="Primary (continued)">
+      {%- for item in site.nav offset: half -%}
+        {%- include nav-link.html item=item -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="header-social">{%- include social.html -%}</div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav class="drawer__nav" aria-label="Mobile">
+    {%- for item in site.nav -%}
+      {%- include nav-link.html item=item -%}
+    {%- endfor -%}
+  </nav>
+  <div class="drawer__social">{%- include social.html -%}</div>
+</div>
