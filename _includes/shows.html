@@ -22,7 +22,11 @@
     </time>
     <div class="show__venue">
       <strong>{{ s.venue }}</strong>
-      <span>{{ s.city }}</span>
+      {%- capture map_url -%}{%- if s.map -%}{{ s.map }}{%- else -%}https://www.google.com/maps/search/?api=1&query={{ s.venue | append: ', ' | append: s.city | url_encode }}{%- endif -%}{%- endcapture %}
+      <a class="show__city" href="{{ map_url }}" target="_blank" rel="noopener" aria-label="{{ s.city }}: open {{ s.venue }} in Maps">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
+        <span>{{ s.city }}</span>
+      </a>
       {%- if s.note %}<em>{{ s.note }}</em>{% endif -%}
     </div>
     <div class="show__cta">

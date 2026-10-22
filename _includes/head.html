@@ -3,7 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070c14">
   <script>document.documentElement.classList.remove('no-js');</script>
-  {%- seo -%}
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+  {%- seo title=false -%}
   <link rel="icon" href="{{ '/assets/img/favicon.png' | relative_url }}" type="image/png">
   <link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">

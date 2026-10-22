@@ -33,14 +33,11 @@
 .scroll-up .nav__link.is-active::after { transform-origin: right; }
 .nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-// Logo: grows a hair on hover, nothing else
+// Logo: no zoom; on hover it dims lightly for half a second, then comes back
 .logo { display: block; line-height: 0; }
-.logo img {
-  height: 72px; width: auto;
-  transform-origin: 38% 46%;   // centre of the "Be" (where the ink is), not of the image box
-  transition: transform .6s var(--ease-out); will-change: transform;
-}
-.logo:hover img, .logo:focus-visible img { transform: scale(1.035); }
+.logo img { height: 72px; width: auto; }
+.logo:hover img, .logo:focus-visible img { animation: logo-dim .5s ease-in-out; }
+@keyframes logo-dim { 45% { opacity: .62; } }
 
 .site-header__social {
   height: var(--social-h); display: flex; justify-content: center; align-items: flex-start;

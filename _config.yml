@@ -4,7 +4,7 @@
 #  This file holds things shared by every page.
 # ============================================================
 
-title: "Ben"
+title: "Andrea Benini"   # browser tab: "Andrea Benini" on the home page, "Music | Andrea Benini" elsewhere
 artist_name: "Andrea Benini"
 description: "Andrea “Ben” Benini — blues & funk guitarist. Make guitar mainstream again."
 lang: en
