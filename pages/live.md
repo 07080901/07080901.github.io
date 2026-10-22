@@ -7,36 +7,36 @@ subtitle: "Pubs, clubs & jam nights"
 # ------------------------------------------------------------------
 # GIGS — add a new block for every show. Order doesn't matter.
 # Shows whose date has passed move to "Past gigs" by themselves.
-#   date:  YYYY-MM-DD      venue / city: text
+#   date:  DD/MM/YYYY      venue / city: text
 #   note:  optional line   link: optional (tickets / info / event page)
 #   map:   the venue's map link (Google Maps → Share → Copy link).
 #          Leave it out and the pin searches the map for venue + city.
 # ------------------------------------------------------------------
 shows:
-  - date: 2026-10-22
+  - date: 22/10/2026
     venue: "Exwide Jazz Club"
     city: "Pisa"
     map: "https://maps.google.com/?q=London"   # TEST: swap in this venue's Google Maps link
     note: "Afrobeat jam · playing D'Angelo's “Untitled”"
 
-  - date: 2026-11-21
+  - date: 21/11/2026
     venue: "The Old Barrel (placeholder pub)"
     city: "Lucca"
     map: "https://maps.google.com/?q=London"   # TEST: swap in this venue's Google Maps link
     note: "Blues & funk set"
 
-  - date: 2026-12-12
+  - date: 12/12/2026
     venue: "Molo Bar (placeholder pub)"
     city: "Livorno"
     map: "https://maps.google.com/?q=London"   # TEST: swap in this venue's Google Maps link
     note: "Open jam night"
 
-  - date: 2027-01-16
+  - date: 16/01/2027
     venue: "Cantina Blues (placeholder pub)"
     city: "Firenze"
     map: "https://maps.google.com/?q=London"   # TEST: swap in this venue's Google Maps link
 
-  - date: 2025-11-11
+  - date: 11/11/2025
     venue: "Route 66"
     city: "Asciano Pisano"
     map: "https://maps.google.com/?q=London"   # TEST: swap in this venue's Google Maps link

@@ -1,0 +1,11 @@
+{%- comment -%}
+  Turns a date written day/month/year (15/05/2026 or 15/5/2026) into 2026-05-15,
+  which sorts correctly and works with Liquid's date filter.
+  Old-style 2026-05-15 dates pass through unchanged. Param: date
+{%- endcomment -%}
+{%- assign _dmy = include.date | split: '/' -%}
+{%- if _dmy.size == 3 -%}
+{{- _dmy[2] | strip -}}-{{- _dmy[1] | strip | prepend: '0' | slice: -2, 2 -}}-{{- _dmy[0] | strip | prepend: '0' | slice: -2, 2 -}}
+{%- else -%}
+{{- include.date | date: '%Y-%m-%d' -}}
+{%- endif -%}

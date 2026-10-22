@@ -2,7 +2,7 @@
 # RELEASE PAGE  →  /music/solder-and-strings/  (the address comes from the file name)
 title: "Solder & Strings"
 type: "EP"
-date: 2025-09-20          # release date (YYYY-MM-DD): sets the order on /music/
+date: 20/09/2025          # release date (DD/MM/YYYY): sets the order on /music/
 cover: /assets/img/music/cover-2.svg   # square image (1000x1000 JPG works best)
 # ------------------------------------------------------------------
 # TRACKLIST — one line per song, in order. length is optional.

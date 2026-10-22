@@ -4,33 +4,44 @@
   the site rebuilds daily).
 {%- endcomment -%}
 {%- assign today = site.time | date: '%Y%m%d' | plus: 0 -%}
-{%- assign sorted = include.shows | sort: 'date' -%}
-{%- if include.past -%}{%- assign sorted = sorted | reverse -%}{%- endif -%}
+{%- comment -%} sort by date: build "YYYYMMDD~position" keys (dates are written day/month/year) {%- endcomment -%}
+{%- assign gig_keys = "" | split: "" -%}
+{%- for s in include.shows -%}
+  {%- capture gig_iso -%}{% include iso-date.html date=s.date %}{%- endcapture -%}
+  {%- capture gig_key -%}{{ gig_iso | remove: '-' }}~{{ forloop.index0 }}{%- endcapture -%}
+  {%- assign gig_keys = gig_keys | push: gig_key -%}
+{%- endfor -%}
+{%- assign gig_keys = gig_keys | sort -%}
+{%- if include.past -%}{%- assign gig_keys = gig_keys | reverse -%}{%- endif -%}
 {%- assign count = 0 -%}
 <ul class="shows{% if include.past %} shows--past{% endif %}" role="list">
-{%- for s in sorted -%}
-  {%- assign d = s.date | date: '%Y%m%d' | plus: 0 -%}
-  {%- if include.past -%}{%- if d >= today -%}{%- continue -%}{%- endif -%}
-  {%- else -%}{%- if d < today -%}{%- continue -%}{%- endif -%}{%- endif -%}
+{%- for gig_key in gig_keys -%}
+  {%- assign gig_kp = gig_key | split: '~' -%}
+  {%- assign gig_i = gig_kp[1] | plus: 0 -%}
+  {%- assign gig = include.shows[gig_i] -%}
+  {%- assign gig_day = gig_kp[0] | plus: 0 -%}
+  {%- capture gig_iso -%}{{ gig_kp[0] | slice: 0, 4 }}-{{ gig_kp[0] | slice: 4, 2 }}-{{ gig_kp[0] | slice: 6, 2 }}{%- endcapture -%}
+  {%- if include.past -%}{%- if gig_day >= today -%}{%- continue -%}{%- endif -%}
+  {%- else -%}{%- if gig_day < today -%}{%- continue -%}{%- endif -%}{%- endif -%}
   {%- if include.limit and count >= include.limit -%}{%- break -%}{%- endif -%}
   {%- assign count = count | plus: 1 -%}
   <li class="show reveal">
-    <time class="show__date" datetime="{{ s.date | date: '%Y-%m-%d' }}">
-      <span class="show__day">{{ s.date | date: '%-d' }}</span>
-      <span class="show__mon">{{ s.date | date: '%b %Y' }}</span>
-      <span class="show__dow">{% if d == today and include.past != true %}Tonight{% else %}{{ s.date | date: '%A' }}{% endif %}</span>
+    <time class="show__date" datetime="{{ gig_iso }}">
+      <span class="show__day">{{ gig_iso | date: '%-d' }}</span>
+      <span class="show__mon">{{ gig_iso | date: '%b %Y' }}</span>
+      <span class="show__dow">{% if gig_day == today and include.past != true %}Tonight{% else %}{{ gig_iso | date: '%A' }}{% endif %}</span>
     </time>
     <div class="show__venue">
-      <strong>{{ s.venue }}</strong>
-      {%- capture map_url -%}{%- if s.map -%}{{ s.map }}{%- else -%}https://www.google.com/maps/search/?api=1&query={{ s.venue | append: ', ' | append: s.city | url_encode }}{%- endif -%}{%- endcapture %}
-      <a class="show__city" href="{{ map_url }}" target="_blank" rel="noopener" aria-label="{{ s.city }}: open {{ s.venue }} in Maps">
+      <strong>{{ gig.venue }}</strong>
+      {%- capture map_url -%}{%- if gig.map -%}{{ gig.map }}{%- else -%}https://www.google.com/maps/search/?api=1&query={{ gig.venue | append: ', ' | append: gig.city | url_encode }}{%- endif -%}{%- endcapture %}
+      <a class="show__city" href="{{ map_url }}" target="_blank" rel="noopener" aria-label="{{ gig.city }}: open {{ gig.venue }} in Maps">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
-        <span>{{ s.city }}</span>
+        <span>{{ gig.city }}</span>
       </a>
-      {%- if s.note %}<em>{{ s.note }}</em>{% endif -%}
+      {%- if gig.note %}<em>{{ gig.note }}</em>{% endif -%}
     </div>
     <div class="show__cta">
-      {%- if s.link -%}<a class="btn btn--small" href="{{ s.link }}" target="_blank" rel="noopener">{{ s.link_text | default: 'Info' }}</a>{%- endif -%}
+      {%- if gig.link -%}<a class="btn btn--small" href="{{ gig.link }}" target="_blank" rel="noopener">{{ gig.link_text | default: 'Info' }}</a>{%- endif -%}
     </div>
   </li>
 {%- endfor -%}

@@ -23,7 +23,8 @@ layout: default
     <header class="rel__head">
       <div class="rel__cover reveal"><img src="{{ page.cover | relative_url }}" alt="{{ page.title }} cover" fetchpriority="high" decoding="async"></div>
       <div class="rel__meta">
-        <p class="release__type reveal">{{ page.type }} · {{ page.date | date: '%Y' }}</p>
+        {%- capture iso -%}{% include iso-date.html date=page.date %}{%- endcapture %}
+        <p class="release__type reveal">{{ page.type }} · {{ iso | date: '%-d %B %Y' }}</p>
         <h1 class="display rel__title reveal">{{ page.title }}</h1>
         {%- if page.links %}
         <a class="btn reveal" href="#listen" data-listen>

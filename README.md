@@ -20,7 +20,7 @@ The site is **one long page**: hero → Music → Live! → Videos → About →
 
 ### Quick recipes
 
-- **Add a gig:** in `pages/live.md`, copy one `- date:` block, paste it under `shows:` and change it. Keep the two-space indentation.
+- **Add a gig:** in `pages/live.md`, copy one `- date:` block, paste it under `shows:` and change it. Dates are day/month/year, e.g. `date: 21/11/2026`. Keep the two-space indentation.
 - **Add a release:** copy a file in `pages/music/` (e.g. `stank-face.md`), rename it and edit it. The file name is the address: `pages/music/night-drive.md` → `/music/night-drive/`. It shows up in the Music section by itself, newest `date:` first. Inside: `tracks:` is the tracklist, `links:` the streaming links (Spotify, Apple Music, YouTube, SoundCloud, Bandcamp, Tidal, Deezer, Amazon Music each get their icon). Every play button in the tracklist jumps down to those links. The card in the Music section takes its links from the same `links:` list (first 3), so each URL is written once; add `card_links:` to that file to pick others by name or add a card-only link.
 - **Add a video:** in `pages/videos.md`, the ID is the part after `watch?v=`. YouTube supplies the thumbnail.
 - **Change a picture:** upload it to `assets/img/...` (JPG is fine), then put its path in the page's file, e.g. `hero_image: /assets/img/home/my-photo.jpg`.

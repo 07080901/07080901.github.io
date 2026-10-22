@@ -8,22 +8,33 @@
     - name: Pre-save          → a link only for the card
       url: "https://…"
 {%- endcomment -%}
-{%- assign releases = site.pages | where_exp: "p", "p.path contains 'pages/music/'" | sort: "date" | reverse -%}
+{%- assign rel_all = site.pages | where_exp: "p", "p.path contains 'pages/music/'" -%}
+{%- comment -%} newest first: "YYYYMMDD~position" keys (dates are written day/month/year) {%- endcomment -%}
+{%- assign rel_keys = "" | split: "" -%}
+{%- for r in rel_all -%}
+  {%- capture rel_iso -%}{% include iso-date.html date=r.date %}{%- endcapture -%}
+  {%- capture rel_key -%}{{ rel_iso | remove: '-' }}~{{ forloop.index0 }}{%- endcapture -%}
+  {%- assign rel_keys = rel_keys | push: rel_key -%}
+{%- endfor -%}
+{%- assign rel_keys = rel_keys | sort | reverse -%}
 <ul class="releases" role="list">
-  {%- for r in releases limit: include.limit -%}
-  {%- assign href = r.url | relative_url -%}
+  {%- for rel_key in rel_keys limit: include.limit -%}
+  {%- assign rel_kp = rel_key | split: '~' -%}
+  {%- assign rel_i = rel_kp[1] | plus: 0 -%}
+  {%- assign rel = rel_all[rel_i] -%}
+  {%- assign rel_href = rel.url | relative_url -%}
   <li class="release reveal">
-    <a class="release__cover" href="{{ href }}" tabindex="-1" aria-hidden="true"><img src="{{ r.cover | relative_url }}" alt="" loading="lazy" decoding="async"></a>
-    <p class="release__type">{{ r.type }} · {{ r.date | date: '%Y' }}</p>
-    <h3 class="release__title"><a href="{{ href }}">{{ r.title }}</a></h3>
+    <a class="release__cover" href="{{ rel_href }}" tabindex="-1" aria-hidden="true"><img src="{{ rel.cover | relative_url }}" alt="" loading="lazy" decoding="async"></a>
+    <p class="release__type">{{ rel.type }} · {{ rel_kp[0] | slice: 0, 4 }}</p>
+    <h3 class="release__title"><a href="{{ rel_href }}">{{ rel.title }}</a></h3>
     <div class="release__links">
-      {%- if r.card_links -%}
-        {%- for c in r.card_links -%}
-          {%- if c.url -%}{%- assign l = c -%}{%- else -%}{%- assign l = r.links | where: "name", c | first -%}{%- endif -%}
-          {%- if l %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endif -%}
+      {%- if rel.card_links -%}
+        {%- for c in rel.card_links -%}
+          {%- if c.url -%}{%- assign rel_link = c -%}{%- else -%}{%- assign rel_link = rel.links | where: "name", c | first -%}{%- endif -%}
+          {%- if rel_link %}<a class="chip" href="{{ rel_link.url }}" target="_blank" rel="noopener">{{ rel_link.name }}</a>{% endif -%}
         {%- endfor -%}
       {%- else -%}
-        {%- for l in r.links limit: 3 %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endfor -%}
+        {%- for l in rel.links limit: 3 %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endfor -%}
       {%- endif -%}
     </div>
   </li>
