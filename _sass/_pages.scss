@@ -90,6 +90,8 @@
       linear-gradient(rgba(234, 243, 251, .3), rgba(234, 243, 251, .3)) 0 100% / 100% 1px no-repeat;
     transition: background-size .4s var(--ease-out); }
   a:hover, a:focus-visible { background-size: 100% 2px, 100% 1px; } }
+// hovering the cover sweeps the title's line in too, exactly like hovering the title
+.release__cover:hover ~ .release__title a { background-size: 100% 2px, 100% 1px; }
 .release__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
 // Videos
