@@ -1,14 +1,17 @@
-{%- comment -%} Release cards. Params: releases (list from pages/music.md), limit (optional). {%- endcomment -%}
+{%- comment -%}
+  Release cards: one per file in pages/music/, newest first.
+  Cover and title open the release page. Param: limit (optional).
+{%- endcomment -%}
+{%- assign releases = site.pages | where_exp: "p", "p.path contains 'pages/music/'" | sort: "date" | reverse -%}
 <ul class="releases" role="list">
-  {%- for r in include.releases limit: include.limit -%}
-  <li class="release">
-    <div class="release__cover"><img src="{{ r.cover | relative_url }}" alt="{{ r.title }} cover" loading="lazy" decoding="async"></div>
-    <p class="release__type">{{ r.type }} · {{ r.year }}</p>
-    <h3 class="release__title">{{ r.title }}</h3>
+  {%- for r in releases limit: include.limit -%}
+  {%- assign href = r.url | relative_url -%}
+  <li class="release reveal">
+    <a class="release__cover" href="{{ href }}" tabindex="-1" aria-hidden="true"><img src="{{ r.cover | relative_url }}" alt="" loading="lazy" decoding="async"></a>
+    <p class="release__type">{{ r.type }} · {{ r.date | date: '%Y' }}</p>
+    <h3 class="release__title"><a href="{{ href }}">{{ r.title }}</a></h3>
     <div class="release__links">
-      {%- if r.spotify %}<a class="chip" href="{{ r.spotify }}" target="_blank" rel="noopener">Spotify</a>{% endif -%}
-      {%- if r.apple_music %}<a class="chip" href="{{ r.apple_music }}" target="_blank" rel="noopener">Apple Music</a>{% endif -%}
-      {%- if r.soundcloud %}<a class="chip" href="{{ r.soundcloud }}" target="_blank" rel="noopener">SoundCloud</a>{% endif -%}
+      {%- for l in r.links limit: 3 %}<a class="chip" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% endfor -%}
     </div>
   </li>
   {%- endfor -%}

@@ -35,8 +35,8 @@ layout: default
   {%- assign s = site.pages | where: "section", name | first -%}
   {%- if s -%}
   <section class="section section--{{ name }}{% cycle '', ' section--alt' %}" id="{{ name }}" data-url="{{ s.url | relative_url }}" data-title="{{ s.title }} | {{ site.title }}">
-    <div class="section__inner reveal">
-      <header class="section__head">
+    <div class="section__inner">
+      <header class="section__head reveal">
         <h2 class="display">{{ s.title }}</h2>
         {%- if s.subtitle %}<p class="section__sub">{{ s.subtitle }}</p>{% endif -%}
       </header>
@@ -44,30 +44,30 @@ layout: default
 
       {%- case name -%}
       {%- when "music" -%}
-        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
-        {%- include releases.html releases=s.releases -%}
+        {%- if body != "" %}<div class="prose prose--intro reveal">{{ body | markdownify }}</div>{% endif -%}
+        {%- include releases.html -%}
 
       {%- when "live" -%}
-        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
-        <h3 class="list-title">Upcoming</h3>
+        {%- if body != "" %}<div class="prose prose--intro reveal">{{ body | markdownify }}</div>{% endif -%}
+        <h3 class="list-title reveal">Upcoming</h3>
         {%- include shows.html shows=s.shows -%}
-        <h3 class="list-title">Past gigs</h3>
+        <h3 class="list-title reveal">Past gigs</h3>
         {%- include shows.html shows=s.shows past=true -%}
 
       {%- when "videos" -%}
-        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
+        {%- if body != "" %}<div class="prose prose--intro reveal">{{ body | markdownify }}</div>{% endif -%}
         <ul class="video-grid" role="list">
-          {%- for v in s.videos -%}<li>{%- include video.html video=v -%}</li>{%- endfor -%}
+          {%- for v in s.videos -%}<li class="reveal">{%- include video.html video=v -%}</li>{%- endfor -%}
         </ul>
 
       {%- else -%}
         {%- if s.portrait -%}
         <div class="about-grid">
-          <img class="about-grid__img" src="{{ s.portrait | relative_url }}" alt="{{ site.artist_name }}" loading="lazy" decoding="async">
-          <div class="prose">{{ body | markdownify }}</div>
+          <img class="about-grid__img reveal" src="{{ s.portrait | relative_url }}" alt="{{ site.artist_name }}" loading="lazy" decoding="async">
+          <div class="prose reveal">{{ body | markdownify }}</div>
         </div>
         {%- else -%}
-        <div class="prose">{{ body | markdownify }}</div>
+        <div class="prose reveal">{{ body | markdownify }}</div>
         {%- endif -%}
       {%- endcase -%}
     </div>

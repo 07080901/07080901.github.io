@@ -3,17 +3,28 @@
 // ------------------------------------------------------------
 .hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: var(--bg); }
 
-// Big picture: a very slow drift (scale + pan only, colours untouched)
-.hero__media { position: absolute; inset: 0; overflow: hidden; }
-.hero__img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  transform-origin: 60% 40%;
-  animation: hero-drift 40s ease-in-out infinite alternate;
-  will-change: transform;
+// Big picture stays still. Two soft stage lights hang above it and swing
+// slowly across, out of step with each other (only the beams move).
+.hero__media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero__media::before, .hero__media::after {
+  content: ""; position: absolute; z-index: 1; top: -12%; height: 150%; width: 90vh; pointer-events: none;
+  transform-origin: 50% 0; will-change: transform;
+  background: conic-gradient(at 50% 0, transparent 166deg, var(--beam) 180deg, transparent 194deg);
+  -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 10%, transparent 92%);
 }
-@keyframes hero-drift {
-  from { transform: scale(1.04) translate3d(0, 0, 0); }
-  to   { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+.hero__media::before {
+  --beam: rgba(115, 194, 251, .26); left: calc(28% - 45vh);
+  animation: stage-swing 19s ease-in-out -4s infinite alternate;
+}
+.hero__media::after {
+  --beam: rgba(234, 243, 251, .13); left: calc(74% - 45vh);
+  animation: stage-swing 27s ease-in-out -15s infinite alternate-reverse;
+}
+@keyframes stage-swing {
+  from { transform: rotate(-24deg); }
+  to   { transform: rotate(24deg); }
 }
 // legibility shade only behind the text corner (static)
 .hero::after {
@@ -35,19 +46,19 @@
 // "↓ Scroll for more ↓"
 .scroll-cue {
   position: absolute; z-index: 3; left: 50%; bottom: 26px; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 12px;
-  font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--ink); text-decoration: none; opacity: .85; white-space: nowrap;
-  svg { width: 18px; height: 18px; fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+  display: flex; align-items: center; gap: 16px;
+  font-size: 1rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; white-space: nowrap; transition: color .2s;
+  svg { width: 24px; height: 24px; fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
     animation: cue-bounce 1.6s ease-in-out infinite; }
   svg:last-child { animation-delay: .15s; }
-  &:hover { opacity: 1; color: var(--accent); }
+  &:hover { color: var(--accent); }
 }
 @keyframes cue-bounce { 0%, 100% { transform: translateY(-3px); opacity: .5; } 50% { transform: translateY(4px); opacity: 1; } }
 
 @media (max-width: 760px) {
   .hero__content { bottom: 92px; }
-  .scroll-cue { font-size: .66rem; gap: 8px; }
+  .scroll-cue { font-size: .82rem; gap: 10px; svg { width: 20px; height: 20px; } }
 }
 
 // Sections

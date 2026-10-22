@@ -14,7 +14,7 @@
   {%- else -%}{%- if d < today -%}{%- continue -%}{%- endif -%}{%- endif -%}
   {%- if include.limit and count >= include.limit -%}{%- break -%}{%- endif -%}
   {%- assign count = count | plus: 1 -%}
-  <li class="show">
+  <li class="show reveal">
     <time class="show__date" datetime="{{ s.date | date: '%Y-%m-%d' }}">
       <span class="show__day">{{ s.date | date: '%-d' }}</span>
       <span class="show__mon">{{ s.date | date: '%b %Y' }}</span>
@@ -32,5 +32,5 @@
 {%- endfor -%}
 </ul>
 {%- if count == 0 -%}
-<p class="empty">{% if include.past %}No past gigs yet.{% else %}No gigs booked right now. Join the mailing list to hear first.{% endif %}</p>
+<p class="empty reveal">{% if include.past %}No past gigs yet.{% else %}No gigs booked right now. Join the mailing list to hear first.{% endif %}</p>
 {%- endif -%}

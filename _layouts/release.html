@@ -1,0 +1,71 @@
+---
+layout: default
+---
+{%- comment -%}
+  One release (single / EP / album). Content comes from a file in pages/music/:
+  text = the .md body, tracks: = tracklist, links: = where to listen.
+  Every play button glides down to the links (#listen).
+{%- endcomment -%}
+{%- assign music = site.pages | where: "section", "music" | first -%}
+<article class="rel">
+  <div class="rel__inner">
+    <a class="back" href="{{ music.url | default: '/music/' | relative_url }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Back to music
+    </a>
+
+    <header class="rel__head">
+      <div class="rel__cover reveal"><img src="{{ page.cover | relative_url }}" alt="{{ page.title }} cover" fetchpriority="high" decoding="async"></div>
+      <div class="rel__meta">
+        <p class="release__type reveal">{{ page.type }} · {{ page.date | date: '%Y' }}</p>
+        <h1 class="display rel__title reveal">{{ page.title }}</h1>
+        {%- if page.links %}
+        <a class="btn reveal" href="#listen" data-listen>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 5v14l11-7z"/></svg>
+          Listen now
+        </a>
+        {%- endif %}
+      </div>
+    </header>
+
+    {%- assign body = content | strip -%}
+    {%- if body != "" %}
+    <div class="prose rel__story reveal">{{ content }}</div>
+    {%- endif %}
+
+    {%- if page.tracks %}
+    <section class="rel__block" aria-labelledby="tracklist">
+      <h2 class="list-title reveal" id="tracklist">Tracklist</h2>
+      <ol class="tracks" role="list">
+        {%- for t in page.tracks %}
+        <li class="track reveal">
+          <span class="track__no">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="track__title">{{ t.title }}</span>
+          {%- if t.length %}<span class="track__len">{{ t.length }}</span>{% endif %}
+          <a class="track__play" href="#listen" data-listen aria-label="Play {{ t.title }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endif %}
+
+    {%- if page.links %}
+    <section class="rel__block rel__listen" id="listen" aria-labelledby="listen-title">
+      <h2 class="list-title reveal" id="listen-title">Listen on</h2>
+      <ul class="platforms" role="list">
+        {%- for l in page.links %}
+        <li class="reveal">
+          <a class="platform" href="{{ l.url }}" target="_blank" rel="noopener">
+            {%- include icon.html name=l.name -%}
+            <span class="platform__name">{{ l.name }}</span>
+            <span class="platform__go">Play</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+  </div>
+</article>

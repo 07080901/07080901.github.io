@@ -1,0 +1,14 @@
+{%- comment -%} Platform icon by name (social row, release "listen" links). Param: name {%- endcomment -%}
+{%- case include.name -%}
+  {%- when "YouTube" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path class="fill" d="M10 9l5 3-5 3z"/></svg>
+  {%- when "YouTube Music" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="5.5"/><path class="fill" d="M10.5 9.5l4 2.5-4 2.5z"/></svg>
+  {%- when "Instagram" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="fill" cx="17.5" cy="6.5" r="1"/></svg>
+  {%- when "Spotify" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 9.5c3.5-1 7-.7 10 1M7.5 12.8c3-.8 5.8-.5 8.3.9M8 16c2.4-.6 4.6-.4 6.6.7"/></svg>
+  {%- when "Apple Music" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6l10-2v11.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/></svg>
+  {%- when "SoundCloud" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 9.5V17M7.5 11v6M5 12.5V17M2.5 14v3M12.5 8.2c.8-.5 1.8-.7 2.7-.7a5 5 0 0 1 5 4.6 2.6 2.6 0 0 1-.7 5.1h-7z"/></svg>
+  {%- when "Bandcamp" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M8 7h13l-5 10H3z"/></svg>
+  {%- when "Tidal" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path class="fill" d="M5 5l3 3-3 3-3-3zM12 5l3 3-3 3-3-3zM19 5l3 3-3 3-3-3zM12 12l3 3-3 3-3-3z"/></svg>
+  {%- when "Deezer" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h3M8.5 19h3M14 19h3M8.5 15.5h3M14 15.5h3M14 12h3M19 19h2M19 15.5h2M19 12h2M19 8.5h2M19 5h2"/></svg>
+  {%- when "Amazon Music" -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 14.5c4.8 3.3 12.2 3.3 17 0M17.5 13.2l3 1.3-1 3.1"/><path d="M8 11V7.5a2 2 0 0 1 4 0V11M12 7.5a2 2 0 0 1 4 0V11"/></svg>
+  {%- else -%}<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+{%- endcase -%}

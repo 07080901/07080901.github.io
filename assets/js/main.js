@@ -1,6 +1,6 @@
 /* Site behaviour — no dependencies.
    intro · header · mobile menu · one-page scrolling with real URLs
-   · lazy YouTube · scroll reveal · mailing-list placeholder */
+   · lazy YouTube · release play buttons · scroll reveal · mailing-list placeholder */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -56,9 +56,16 @@
     root.classList.add('intro-done');
   }
 
-  /* ---------- Header: solid on scroll ---------- */
+  /* ---------- Header: solid on scroll · remembers scroll direction ---------- */
+  // html.scroll-up mirrors the menu underline (it grows right to left when going up)
   var header = $('#site-header');
-  var onScroll = function () { if (header) header.classList.toggle('is-scrolled', window.scrollY > 40); };
+  var lastY = window.scrollY;
+  var setUp = function (up) { root.classList.toggle('scroll-up', up); };
+  var onScroll = function () {
+    var y = window.scrollY;
+    if (header) header.classList.toggle('is-scrolled', y > 40);
+    if (y !== lastY) { setUp(y < lastY); lastY = y; }
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -94,6 +101,7 @@
     };
     var go = function (el, push) {
       locked = true; clearTimeout(unlockTimer);
+      setUp(el.getBoundingClientRect().top < 0);
       if (el.dataset.url !== current) {
         current = el.dataset.url;
         history[push ? 'pushState' : 'replaceState']({ section: el.id }, '', current);
@@ -120,7 +128,8 @@
     // browser back / forward
     window.addEventListener('popstate', function () {
       var el = sections.filter(function (s) { return s.dataset.url === location.pathname; })[0];
-      if (el) { current = location.pathname; locked = true; clearTimeout(unlockTimer); mark(el); jump(el, true);
+      if (el) { current = location.pathname; locked = true; clearTimeout(unlockTimer);
+        setUp(el.getBoundingClientRect().top < 0); mark(el); jump(el, true);
         unlockTimer = setTimeout(function () { locked = false; }, 1100); }
     });
     // while scrolling, the section crossing the middle of the screen owns the URL
@@ -138,6 +147,81 @@
       }, { rootMargin: '-45% 0px -50% 0px' });
       sections.forEach(function (s) { spy.observe(s); });
     }
+
+    /* Section magnet: scroll freely; once you've scrolled about 3 wheel steps
+       into the next (or previous) section and pause, the page glides the rest
+       of the way to its start. Any wheel / touch / key during the glide hands
+       control straight back. Long sections can still be read freely. */
+    if (!reduced) {
+      var STEP = 100;          // ≈ one mouse-wheel notch, in px
+      var PULL = 3 * STEP;     // how far into the next section before it pulls
+      var IDLE_MS = 180;       // pause that counts as "stopped scrolling"
+      var restY = window.scrollY, intent = false, pressed = false, gliding = false, idleTimer, raf;
+
+      var points = function () {   // scroll positions where each section starts
+        var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        return sections.map(function (s) {
+          var y = s.id === 'home' ? 0 : s.getBoundingClientRect().top + window.scrollY - pad;
+          return Math.max(0, Math.min(max, Math.round(y)));
+        });
+      };
+      var stopGlide = function () {
+        if (!gliding) return;
+        gliding = false; cancelAnimationFrame(raf); root.style.scrollBehavior = '';
+        restY = window.scrollY;
+      };
+      var glide = function (to) {
+        var from = window.scrollY, dist = to - from, t0 = null;
+        if (Math.abs(dist) < 3) return;
+        var dur = Math.min(950, 420 + Math.abs(dist) * .5);
+        gliding = true; root.style.scrollBehavior = 'auto';   // CSS smooth-scroll would fight the frames
+        var frame = function (now) {
+          if (!gliding) return;
+          if (t0 === null) t0 = now;
+          var t = Math.min(1, (now - t0) / dur);
+          window.scrollTo(0, from + dist * (1 - Math.cos(Math.PI * t)) / 2);   // soft start, soft landing
+          if (t < 1) raf = requestAnimationFrame(frame); else stopGlide();
+        };
+        raf = requestAnimationFrame(frame);
+      };
+      var settle = function () {
+        var y = window.scrollY, moved = y - restY;
+        if (locked || pressed || !intent || Math.abs(moved) < 10) { restY = y; intent = false; return; }
+        intent = false;
+        var p = points(), vh = window.innerHeight;
+        var pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+        var next = p.filter(function (v) { return v > y + 2; })[0];        // start of the section below
+        var prev = p.filter(function (v) { return v < y - 2; }).pop();      // start of the section we're in
+        var target = null;
+        if (moved > 0) {
+          // going down: the next section has risen ~3 steps above the bottom edge
+          if (next !== undefined && next - y <= vh - pad - PULL) target = next;
+        } else if (prev !== undefined) {
+          // going up: we're near the start of this section, or ~3 steps into a short one from below
+          var nearStart = y - prev <= PULL;
+          var fromBelow = next === undefined || next - y >= PULL;
+          if (nearStart || (fromBelow && y - prev <= vh * 1.2)) target = prev;
+        }
+        restY = y;
+        if (target !== null) glide(target);
+      };
+
+      window.addEventListener('scroll', function () {
+        if (gliding) return;
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(settle, IDLE_MS);
+      }, { passive: true });
+      var takeOver = function () { intent = true; stopGlide(); };
+      window.addEventListener('wheel', takeOver, { passive: true });
+      window.addEventListener('touchstart', takeOver, { passive: true });
+      window.addEventListener('keydown', takeOver);
+      window.addEventListener('mousedown', function () { pressed = true; intent = true; stopGlide(); });   // scrollbar drag
+      window.addEventListener('mouseup', function () {
+        pressed = false;
+        clearTimeout(idleTimer); idleTimer = setTimeout(settle, IDLE_MS);
+      });
+    }
   }
 
   /* ---------- Lazy YouTube ---------- */
@@ -153,16 +237,42 @@
     });
   });
 
+  /* ---------- Release page: every play button glides down to the streaming links ---------- */
+  var listen = $('#listen');
+  if (listen) {
+    $$('a[data-listen]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        listen.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        listen.classList.remove('is-flash'); void listen.offsetWidth; listen.classList.add('is-flash');
+      });
+    });
+  }
+
   /* ---------- Mailing list placeholder (no provider set yet) ---------- */
   $$('form[data-soon]').forEach(function (f) {
     f.addEventListener('submit', function (e) { e.preventDefault(); $('.mailing__note', f).hidden = false; });
   });
 
-  /* ---------- Scroll reveal ---------- */
+  /* ---------- Scroll reveal: items come in top to bottom, one after another ---------- */
+  var STAGGER = 65, MAX_WAIT = 450;   // ms between items · longest an item waits its turn
   var reveals = $$('.reveal');
   if ('IntersectionObserver' in window && !reduced) {
+    var nextAt = 0;
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+      var batch = entries.filter(function (en) { return en.isIntersecting; }).map(function (en) { return en.target; });
+      batch.sort(function (a, b) {
+        var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+        return (ra.top - rb.top) || (ra.left - rb.left);
+      });
+      var now = performance.now();
+      batch.forEach(function (el) {
+        var at = Math.max(now, nextAt), wait = Math.min(at - now, MAX_WAIT);
+        nextAt = now + wait + STAGGER;
+        el.style.setProperty('--d', Math.round(wait) + 'ms');
+        el.classList.add('is-in');
+        io.unobserve(el);
+      });
     }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { io.observe(el); });
   } else {

@@ -27,6 +27,7 @@ p { margin: 0 0 1em; }
   font: 700 .82rem/1 var(--font); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; cursor: pointer;
   transition: background .25s, color .25s, transform .25s, box-shadow .25s;
   svg { width: 1.35em; height: 1.35em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  svg .fill { fill: currentColor; stroke: none; }
   &:hover { background: transparent; color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(115, 194, 251, .6); }
   &--small { padding: .6em 1.2em; font-size: .72rem; }
 }
@@ -42,13 +43,19 @@ p { margin: 0 0 1em; }
 }
 .empty { color: var(--muted); }
 
-// Scroll reveal (JS adds .is-in)
-.reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.reveal.is-in, .no-js .reveal { opacity: 1; transform: none; }
+// Line icons (social row, streaming links): see _includes/icon.html
+.icon { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  .fill { fill: currentColor; stroke: none; } }
+
+// Scroll reveal: JS adds .is-in and a small --d delay so items arrive top to bottom, one after another.
+// Only the entrance is animated, so hover effects on the same elements keep working afterwards.
+html:not(.no-js) .reveal:not(.is-in) { opacity: 0; }
+.reveal.is-in { animation: reveal-up .6s var(--ease-out) var(--d, 0ms) backwards; }
+@keyframes reveal-up { from { opacity: 0; transform: translate3d(0, 22px, 0); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; }
+  html:not(.no-js) .reveal:not(.is-in) { opacity: 1; }
 }

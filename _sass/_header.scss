@@ -20,32 +20,35 @@
 .nav--right { justify-content: flex-start; }
 .nav__link {
   position: relative; padding: 6px 0;
-  font-size: .82rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; text-decoration: none;
+  font-size: 1.02rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; text-decoration: none;
   &::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent);
     transform: scaleX(0); transform-origin: right; transition: transform .35s var(--ease);
   }
-  &:hover::after, &.is-active::after { transform: scaleX(1); transform-origin: left; }
+  &.is-active::after { transform: scaleX(1); transform-origin: left; }
   &.is-active { color: var(--accent); }
 }
+// Scrolling up (html.scroll-up, set in main.js): the underline mirrors, growing right to left.
+.scroll-up .nav__link::after { transform-origin: left; }
+.scroll-up .nav__link.is-active::after { transform-origin: right; }
+.nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-// Logo: grows a touch on hover, nothing else
+// Logo: grows a hair on hover, nothing else
 .logo { display: block; line-height: 0; }
 .logo img {
-  height: 58px; width: auto;
-  transition: transform .5s var(--ease-out);
+  height: 72px; width: auto;
+  transition: transform .6s var(--ease-out); will-change: transform;
 }
-.logo:hover img, .logo:focus-visible img { transform: scale(1.08); }
+.logo:hover img, .logo:focus-visible img { transform: scale(1.035); }
 
 .site-header__social {
   height: var(--social-h); display: flex; justify-content: center; align-items: flex-start;
 }
 .social {
-  display: flex; gap: 24px; list-style: none; margin: 0; padding: 0;
-  a { display: block; width: 24px; height: 24px; color: var(--muted); transition: color .2s, transform .2s; }
+  display: flex; gap: 30px; list-style: none; margin: 0; padding: 0;
+  a { display: block; width: 31px; height: 31px; color: var(--muted); transition: color .2s, transform .3s var(--ease-out); }
   a:hover { color: var(--accent); transform: translateY(-2px); }
-  svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-  .fill { fill: currentColor; stroke: none; }
+  svg { display: block; width: 100%; height: 100%; }
 }
 
 // Mobile menu
@@ -71,12 +74,13 @@
   .nav__link { font-size: 2.2rem; letter-spacing: .02em; } }
 
 @media (max-width: 760px) {
-  :root { --bar-h: 64px; --social-h: 38px; }
+  :root { --bar-h: 70px; --social-h: 44px; }
   .nav { display: none; }
   .menu-toggle, .menu-spacer { display: block; }
   .menu-spacer { width: 30px; }
   .site-header__bar { grid-template-columns: 30px 1fr 30px; }
   .logo { justify-self: center; }
-  .logo img { height: 42px; }
+  .logo img { height: 50px; }
+  .social { gap: 24px; a { width: 27px; height: 27px; } }
   .site-header { z-index: 110; }
 }

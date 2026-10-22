@@ -79,6 +79,13 @@ defaults:
       path: ""
     values:
       image: /assets/img/og-image.jpg   # picture shown when the site is shared
+  # Every file in pages/music/ is a release page: pages/music/stank-face.md → /music/stank-face/
+  - scope:
+      path: "pages/music"
+    values:
+      layout: release
+      permalink: /music/:basename/
+      nav: music
 twitter:
   card: summary_large_image
 sass:
