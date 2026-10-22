@@ -261,18 +261,21 @@
   /* ---------- Release page: sticky bar gets its glass once content slides under it,
                 and shows the title once the big one has scrolled away ---------- */
   // While its title is showing, scrolling down also folds away the header's
-  // social icons (html.social-tucked); scrolling up brings them back.
+  // social icons (html.social-tucked); they come back once the title leaves the bar.
   var relBar = $('#rel-bar'), relTitle = $('.rel__title');
   if (relBar && relTitle) {
     var barTick = false, barY = window.scrollY;
     var updateBar = function () {
       barTick = false;
-      var y = window.scrollY, bar = relBar.getBoundingClientRect();
+      var y = window.scrollY;
+      // measured where the bar sits with the icons showing, so folding them
+      // (which moves the bar up) can't flip the title back and forth
+      var line = (parseFloat(getComputedStyle(root).scrollPaddingTop) || 0) + relBar.offsetHeight;
+      var hasTitle = relTitle.getBoundingClientRect().bottom < line;
       relBar.classList.toggle('is-stuck', y > 4);
-      relBar.classList.toggle('has-title', relTitle.getBoundingClientRect().bottom < bar.bottom);
-      if (y < 8) root.classList.remove('social-tucked');
-      else if (y > barY + 4 && relBar.classList.contains('has-title')) root.classList.add('social-tucked');
-      else if (y < barY - 4) root.classList.remove('social-tucked');
+      relBar.classList.toggle('has-title', hasTitle);
+      if (!hasTitle) root.classList.remove('social-tucked');
+      else if (y > barY + 4) root.classList.add('social-tucked');
       if (Math.abs(y - barY) > 4) barY = y;
     };
     window.addEventListener('scroll', function () { if (!barTick) { barTick = true; requestAnimationFrame(updateBar); } }, { passive: true });
