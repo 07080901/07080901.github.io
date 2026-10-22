@@ -237,6 +237,21 @@
     });
   });
 
+  /* ---------- Release page: sticky bar gets its glass once content slides under it,
+                and shows the title once the big one has scrolled away ---------- */
+  var relBar = $('#rel-bar'), relTitle = $('.rel__title');
+  if (relBar && relTitle) {
+    var barTick = false;
+    var updateBar = function () {
+      barTick = false;
+      var bar = relBar.getBoundingClientRect();
+      relBar.classList.toggle('is-stuck', window.scrollY > 4);
+      relBar.classList.toggle('has-title', relTitle.getBoundingClientRect().bottom < bar.bottom);
+    };
+    window.addEventListener('scroll', function () { if (!barTick) { barTick = true; requestAnimationFrame(updateBar); } }, { passive: true });
+    updateBar();
+  }
+
   /* ---------- Release page: every play button glides down to the streaming links ---------- */
   var listen = $('#listen');
   if (listen) {
@@ -249,9 +264,9 @@
     });
   }
 
-  /* ---------- Mailing list placeholder (no provider set yet) ---------- */
+  /* ---------- Mailing list placeholder: no provider set yet, the button does nothing ---------- */
   $$('form[data-soon]').forEach(function (f) {
-    f.addEventListener('submit', function (e) { e.preventDefault(); $('.mailing__note', f).hidden = false; });
+    f.addEventListener('submit', function (e) { e.preventDefault(); });
   });
 
   /* ---------- Scroll reveal: items come in top to bottom, one after another ---------- */

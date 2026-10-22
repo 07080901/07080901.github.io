@@ -8,12 +8,18 @@ layout: default
 {%- endcomment -%}
 {%- assign music = site.pages | where: "section", "music" | first -%}
 <article class="rel">
-  <div class="rel__inner">
-    <a class="back" href="{{ music.url | default: '/music/' | relative_url }}">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-      Back to music
-    </a>
+  {%- comment -%} Sticks under the top bar; the title slides in once the big one scrolls away {%- endcomment -%}
+  <div class="rel-bar" id="rel-bar">
+    <div class="rel-bar__inner">
+      <a class="back" href="{{ music.url | default: '/music/' | relative_url }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Back to music
+      </a>
+      <p class="rel-bar__title" aria-hidden="true"><span>{{ page.type }}</span> {{ page.title }}</p>
+    </div>
+  </div>
 
+  <div class="rel__inner">
     <header class="rel__head">
       <div class="rel__cover reveal"><img src="{{ page.cover | relative_url }}" alt="{{ page.title }} cover" fetchpriority="high" decoding="async"></div>
       <div class="rel__meta">

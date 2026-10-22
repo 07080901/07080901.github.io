@@ -89,9 +89,28 @@
 // ------------------------------------------------------------
 //  Release page (/music/<name>/): cover + story, tracklist, where to listen
 // ------------------------------------------------------------
-.rel { padding: calc(var(--header-h) + 28px) var(--gutter) 110px;
+.rel { padding: var(--header-h) 0 110px;
   background: radial-gradient(ellipse at 20% 0%, rgba(115, 194, 251, .14), transparent 55%); }
-.rel__inner { max-width: 980px; margin: 0 auto; }
+.rel__inner { max-width: 980px; margin: 0 auto; padding: 0 var(--gutter); }
+
+// Second bar: stays under the top bar. Gets the header's glass once content
+// slides under it (.is-stuck); the title fades in from the right when the
+// big title has scrolled away (.has-title). Both set in main.js.
+.rel-bar {
+  position: sticky; top: var(--header-h); z-index: 50; padding: 14px var(--gutter);
+  border-bottom: 1px solid transparent; transition: background .35s, border-color .35s;
+  &.is-stuck { background: rgba(7, 12, 20, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: var(--line); }
+}
+.rel-bar__inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.rel-bar__title {
+  margin: 0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em;
+  opacity: 0; transform: translate3d(14px, 0, 0); pointer-events: none;
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+  span { margin-right: .5em; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); vertical-align: .15em; }
+}
+.rel-bar.has-title .rel-bar__title { opacity: 1; transform: none; }
+@media (max-width: 760px) { .rel-bar__title { font-size: 1rem; span { display: none; } } }
 
 .back {
   display: inline-flex; align-items: center; gap: .65em; padding: .75em 1.25em .75em 1em;
@@ -103,7 +122,7 @@
   &:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); svg { transform: translateX(-4px); } }
 }
 
-.rel__head { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: clamp(28px, 5vw, 60px); align-items: end; margin: 36px 0 60px; }
+.rel__head { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: clamp(28px, 5vw, 60px); align-items: end; margin: 20px 0 60px; }
 .rel__cover { aspect-ratio: 1; overflow: hidden; border-radius: 8px; background: var(--bg-3);
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .85), 0 0 0 1px var(--line);
   img { width: 100%; height: 100%; object-fit: cover; } }
@@ -111,7 +130,8 @@
 .rel__title { font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -.035em; margin: .1em 0 .45em; }
 .rel__story { max-width: 720px; margin-bottom: 64px; }
 .rel__block { max-width: 820px; margin-top: 56px; }
-@media (max-width: 760px) { .rel__head { grid-template-columns: 1fr; margin-top: 24px; } }
+@media (max-width: 760px) { .rel__head { grid-template-columns: 1fr; margin-top: 12px; } }
+.rel__listen { scroll-margin-top: 80px; }   // land below the sticky bar, not under it
 
 // Tracklist: number · title · length · play
 .tracks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }

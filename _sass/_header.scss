@@ -37,6 +37,7 @@
 .logo { display: block; line-height: 0; }
 .logo img {
   height: 72px; width: auto;
+  transform-origin: 38% 46%;   // centre of the "Be" (where the ink is), not of the image box
   transition: transform .6s var(--ease-out); will-change: transform;
 }
 .logo:hover img, .logo:focus-visible img { transform: scale(1.035); }
