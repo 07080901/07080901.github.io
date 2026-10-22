@@ -1,6 +1,0 @@
-{%- assign it = include.item -%}
-{%- if it.external -%}
-<a class="nav__link" href="{{ it.url }}" target="_blank" rel="noopener">{{ it.title }}</a>
-{%- else -%}
-<a class="nav__link{% if page.url contains it.url %} is-active{% endif %}" href="{{ it.url | relative_url }}">{{ it.title }}</a>
-{%- endif -%}
