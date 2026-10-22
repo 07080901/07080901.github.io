@@ -1,0 +1,36 @@
+{%- comment -%}
+  Gig list. Params: shows (list from pages/live.md), limit (optional), past (true = past gigs).
+  A gig counts as upcoming until the end of its day (dates are compared at build time;
+  the site rebuilds daily).
+{%- endcomment -%}
+{%- assign today = site.time | date: '%Y%m%d' | plus: 0 -%}
+{%- assign sorted = include.shows | sort: 'date' -%}
+{%- if include.past -%}{%- assign sorted = sorted | reverse -%}{%- endif -%}
+{%- assign count = 0 -%}
+<ul class="shows{% if include.past %} shows--past{% endif %}" role="list">
+{%- for s in sorted -%}
+  {%- assign d = s.date | date: '%Y%m%d' | plus: 0 -%}
+  {%- if include.past -%}{%- if d >= today -%}{%- continue -%}{%- endif -%}
+  {%- else -%}{%- if d < today -%}{%- continue -%}{%- endif -%}{%- endif -%}
+  {%- if include.limit and count >= include.limit -%}{%- break -%}{%- endif -%}
+  {%- assign count = count | plus: 1 -%}
+  <li class="show">
+    <time class="show__date" datetime="{{ s.date | date: '%Y-%m-%d' }}">
+      <span class="show__day">{{ s.date | date: '%-d' }}</span>
+      <span class="show__mon">{{ s.date | date: '%b %Y' }}</span>
+      <span class="show__dow">{% if d == today and include.past != true %}Tonight{% else %}{{ s.date | date: '%A' }}{% endif %}</span>
+    </time>
+    <div class="show__venue">
+      <strong>{{ s.venue }}</strong>
+      <span>{{ s.city }}</span>
+      {%- if s.note %}<em>{{ s.note }}</em>{% endif -%}
+    </div>
+    <div class="show__cta">
+      {%- if s.link -%}<a class="btn btn--small" href="{{ s.link }}" target="_blank" rel="noopener">{{ s.link_text | default: 'Info' }}</a>{%- endif -%}
+    </div>
+  </li>
+{%- endfor -%}
+</ul>
+{%- if count == 0 -%}
+<p class="empty">{% if include.past %}No past gigs yet.{% else %}No gigs booked right now. Join the mailing list to hear first.{% endif %}</p>
+{%- endif -%}

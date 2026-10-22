@@ -1,0 +1,15 @@
+{%- comment -%} Release cards. Params: releases (list from pages/music.md), limit (optional). {%- endcomment -%}
+<ul class="releases" role="list">
+  {%- for r in include.releases limit: include.limit -%}
+  <li class="release">
+    <div class="release__cover"><img src="{{ r.cover | relative_url }}" alt="{{ r.title }} cover" loading="lazy" decoding="async"></div>
+    <p class="release__type">{{ r.type }} · {{ r.year }}</p>
+    <h3 class="release__title">{{ r.title }}</h3>
+    <div class="release__links">
+      {%- if r.spotify %}<a class="chip" href="{{ r.spotify }}" target="_blank" rel="noopener">Spotify</a>{% endif -%}
+      {%- if r.apple_music %}<a class="chip" href="{{ r.apple_music }}" target="_blank" rel="noopener">Apple Music</a>{% endif -%}
+      {%- if r.soundcloud %}<a class="chip" href="{{ r.soundcloud }}" target="_blank" rel="noopener">SoundCloud</a>{% endif -%}
+    </div>
+  </li>
+  {%- endfor -%}
+</ul>

@@ -1,0 +1,23 @@
+// ------------------------------------------------------------
+//  Colours & font — change these to re-skin the whole site.
+// ------------------------------------------------------------
+:root {
+  --bg: #070c14;          // page background (deep night blue)
+  --bg-2: #0c1420;        // alternate section background
+  --bg-3: #122033;        // cards / hover
+  --ink: #eaf3fb;         // main text
+  --muted: #8ea4ba;       // secondary text
+  --line: rgba(234, 243, 251, .12);
+  --accent: #73c2fb;      // maya blue (buttons, highlights)
+  --accent-soft: rgba(115, 194, 251, .14);
+  --on-accent: #06111d;   // text on maya-blue buttons
+
+  --font: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bar-h: 76px;          // menu row height
+  --social-h: 34px;       // social icons row height
+  --header-h: calc(var(--bar-h) + var(--social-h));
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1200px;
+  --ease: cubic-bezier(.7, 0, .2, 1);
+}

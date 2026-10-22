@@ -1,0 +1,8 @@
+---
+layout: default
+---
+{%- include page-hero.html -%}
+<div class="page-body page-body--wide">
+  {%- assign body = content | strip -%}{%- if body != "" -%}<div class="prose prose--intro">{{ content }}</div>{%- endif -%}
+  {%- include releases.html releases=page.releases -%}
+</div>

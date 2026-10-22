@@ -1,0 +1,78 @@
+# ============================================================
+#  BEN — site settings
+#  Page content lives in the /pages folder (one .md file per page).
+#  This file holds things shared by every page.
+# ============================================================
+
+title: "Ben"
+artist_name: "Andrea Benini"
+description: "Andrea “Ben” Benini — blues & funk guitarist. Make guitar mainstream again."
+lang: en
+logo: /assets/img/logo/ben.png          # big version (intro animation)
+logo_small: /assets/img/logo/ben-480.png  # header version
+
+# --- GitHub Pages URL ------------------------------------------
+url: "https://07080901.github.io"
+baseurl: ""
+
+# --- Intro animation (home page only) --------------------------
+intro:
+  enabled: true
+  once_per_session: true   # false = play on every home-page visit
+
+# --- Menu: two links left of the logo, two links right ---------
+nav_left:
+  - title: About
+    url: /about/
+  - title: Live!
+    url: /live/
+nav_right:
+  - title: Music
+    url: /music/
+  - title: Videos
+    url: /videos/
+
+# --- Social links (shown under the menu, in this order) --------
+# Leave a link "" to hide that icon.
+social:
+  - name: YouTube
+    url: "https://youtube.com/"
+  - name: Instagram
+    url: "https://instagram.com/"
+  - name: Spotify
+    url: "https://open.spotify.com/"
+  - name: SoundCloud
+    url: "https://soundcloud.com/"
+  - name: Bandcamp
+    url: "https://bandcamp.com/"
+
+# --- Mailing list (home page) ----------------------------------
+# Paste the form "action" URL from Mailchimp / Buttondown / Brevo / Formspree.
+# Leave "" and the form says sign-ups open soon.
+mailing_list:
+  action: ""
+  email_field_name: "email"   # Mailchimp uses "EMAIL"
+  heading: "Join the mailing list"
+  text: "New songs, gigs and the occasional broken string. No spam."
+
+# --- Build settings (no need to touch) -------------------------
+timezone: Europe/Rome
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/og-image.jpg   # picture shown when the site is shared
+twitter:
+  card: summary_large_image
+sass:
+  style: compressed
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.txt
+  - vendor
+  - .bundle

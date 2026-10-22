@@ -1,0 +1,52 @@
+---
+layout: default
+---
+{%- assign live = site.pages | where: "layout", "live" | first -%}
+{%- assign music = site.pages | where: "layout", "music" | first -%}
+
+<section class="hero" data-url="{{ '/' | relative_url }}" data-title="{{ site.title }}">
+  <img class="hero__img" src="{{ page.hero_image | relative_url }}" alt="" fetchpriority="high" decoding="async">
+  <div class="hero__content">
+    <h1 class="hero__title">{{ page.headline }}</h1>
+    <p class="hero__sub">{{ page.subhead }}</p>
+    <a class="btn btn--spotify" href="{{ page.button_url }}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 9.5c3.5-1 7-.7 10 1M7.5 12.8c3-.8 5.8-.5 8.3.9M8 16c2.4-.6 4.6-.4 6.6.7"/></svg>
+      {{ page.button_text }}
+    </a>
+  </div>
+  {%- if live -%}
+  <a class="hero__arrow hero__arrow--left" href="{{ live.url | relative_url }}" data-slide="left">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M40 12L20 32l20 20"/></svg>
+    <span>{{ page.left_arrow }}</span>
+  </a>
+  {%- endif -%}
+  {%- if music -%}
+  <a class="hero__arrow hero__arrow--right" href="{{ music.url | relative_url }}" data-slide="right">
+    <span>{{ page.right_arrow }}</span>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M24 12l20 20-20 20"/></svg>
+  </a>
+  {%- endif -%}
+  <a class="hero__scroll" href="#home-live" aria-label="Scroll down"><span></span></a>
+</section>
+
+{%- if live -%}
+<section class="section section--alt reveal" id="home-live" data-url="{{ live.url | relative_url }}" data-title="{{ live.title }} | {{ site.title }}">
+  <header class="section__head">
+    <h2 class="display">{{ live.title }}</h2>
+    <a class="link-arrow" href="{{ live.url | relative_url }}">All gigs</a>
+  </header>
+  {%- include shows.html shows=live.shows limit=page.live_limit -%}
+</section>
+{%- endif -%}
+
+{%- if music -%}
+<section class="section reveal" id="home-music" data-url="{{ music.url | relative_url }}" data-title="{{ music.title }} | {{ site.title }}">
+  <header class="section__head">
+    <h2 class="display">{{ music.title }}</h2>
+    <a class="link-arrow" href="{{ music.url | relative_url }}">All music</a>
+  </header>
+  {%- include releases.html releases=music.releases limit=page.music_limit -%}
+</section>
+{%- endif -%}
+
+{%- include mailing-list.html -%}

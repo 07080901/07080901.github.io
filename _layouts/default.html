@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  {%- include head.html -%}
+  <body class="{% if page.layout == 'home' %}is-home{% else %}is-inner{% endif %}">
+    <a class="skip-link" href="#main">Skip to content</a>
+    {%- if page.layout == 'home' and site.intro.enabled -%}
+      {%- include intro.html -%}
+    {%- endif -%}
+    {%- include header.html -%}
+    <main id="main">
+      {{ content }}
+    </main>
+    {%- include footer.html -%}
+    <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  </body>
+</html>

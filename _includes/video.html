@@ -1,0 +1,15 @@
+{%- comment -%}
+  YouTube video: shows YouTube's thumbnail and loads the player only when
+  pressed (faster pages, no YouTube cookies until then). Param: video
+{%- endcomment -%}
+{%- assign v = include.video -%}
+<figure class="video">
+  <button class="video__poster" type="button" data-youtube="{{ v.youtube_id }}" aria-label="Play video: {{ v.title }}">
+    <img src="https://i.ytimg.com/vi/{{ v.youtube_id }}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+    <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+  </button>
+  <figcaption class="video__caption">
+    {{ v.title }}
+    <a href="https://www.youtube.com/watch?v={{ v.youtube_id }}" target="_blank" rel="noopener">Watch on YouTube</a>
+  </figcaption>
+</figure>

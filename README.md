@@ -1,0 +1,55 @@
+# Ben — website
+
+Live at **https://07080901.github.io**. Built with Jekyll and published by GitHub Pages.
+
+## Edit the site
+
+Every page is one Markdown file in **`pages/`**. Open it on GitHub, click the ✏️ pencil, change the text and commit. The site updates in about a minute.
+
+| Page | File | What you edit there |
+|---|---|---|
+| Home (`/`) | `pages/home.md` | headline, "new single" text, Spotify link, background picture, arrow labels |
+| About | `pages/about.md` | your bio (plain Markdown) and portrait photo |
+| Live! | `pages/live.md` | the `shows:` list. Past dates move to "Past gigs" by themselves |
+| Music | `pages/music.md` | the `releases:` list with Spotify / Apple Music / SoundCloud links |
+| Videos | `pages/videos.md` | the `videos:` list (YouTube IDs) |
+| Not-found page | `pages/404.md` | text shown for broken links |
+
+The home page builds its LIVE! and MUSIC sections from `live.md` and `music.md`, so you only edit each gig or release once.
+
+Shared settings (menu, social links in order, mailing-list form, intro on/off) live in **`_config.yml`**.
+
+### Quick recipes
+
+- **Add a gig:** in `pages/live.md`, copy one `- date:` block, paste it under `shows:` and change it. Keep the two-space indentation.
+- **Add a song:** same idea with a `- title:` block in `pages/music.md`. Delete any link line you don't need.
+- **Add a video:** in `pages/videos.md`, the ID is the part after `watch?v=`. YouTube supplies the thumbnail.
+- **Change a picture:** upload it to `assets/img/...` (JPG is fine), then put its path in the page's file, e.g. `hero_image: /assets/img/home/my-photo.jpg`.
+- **Mailing list:** paste your provider's form action URL (Mailchimp, Buttondown, Brevo, Formspree…) into `mailing_list.action` in `_config.yml`.
+
+## Folders
+
+```
+pages/          ← the pages you edit (Markdown)
+_config.yml     ← site-wide settings
+assets/img/     ← logo, pictures, favicon, share image
+assets/css/  _sass/          ← styles (colours are at the top of _sass/_variables.scss)
+assets/js/main.js            ← intro drawing, homepage scroll/URL sync, menu, videos
+_layouts/  _includes/        ← page templates (you shouldn't need to touch these)
+.github/workflows/pages.yml  ← builds & publishes the site
+```
+
+## Good to know
+
+- **Intro:** your signature is written stroke by stroke, then the screen lifts. It plays once per visit and only on the home page. Click or press any key to skip it. It's skipped automatically for people who prefer reduced motion. The strokes in `_includes/intro.html` were traced from `assets/img/logo/ben.png`, so if you change the logo, either get a new trace or set `intro.enabled: false`.
+- **Homepage scrolling:** as you scroll the home page, the address bar changes to `/live/` and `/music/` (and back to `/` at the top), so you can copy and share a link to the section you're looking at.
+- **Arrows:** the big ← and → on the home page open Live! and Music with a slide animation (Chrome, Edge, Safari; other browsers just open the page).
+- **Publishing:** in **Settings → Pages**, *Source* must be **GitHub Actions**. The site rebuilds on every commit and once a day, which is what moves past gigs into "Past gigs". GitHub pauses the daily run after 60 days without commits; turn it back on from the **Actions** tab if that happens.
+- **Action updates:** Dependabot opens a pull request when an action in the workflow has a new version. Merge it to stay free of warnings.
+
+## Preview on your computer (optional)
+
+```bash
+bundle install
+bundle exec jekyll serve   # → http://localhost:4000
+```
