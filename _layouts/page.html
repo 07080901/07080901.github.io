@@ -3,12 +3,5 @@ layout: default
 ---
 {%- include page-hero.html -%}
 <div class="page-body">
-  {%- if page.portrait -%}
-  <div class="about-grid">
-    <img class="about-grid__img reveal" src="{{ page.portrait | relative_url }}" alt="{{ site.artist_name }}">
-    <div class="prose reveal">{{ content }}</div>
-  </div>
-  {%- else -%}
   <div class="prose">{{ content }}</div>
-  {%- endif -%}
 </div>

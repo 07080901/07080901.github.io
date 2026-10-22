@@ -1,5 +1,6 @@
 ---
-layout: music
+layout: home     # same one-page layout; opens scrolled to this section
+section: music
 title: Music
 permalink: /music/
 subtitle: "Singles, demos & jams"

@@ -6,7 +6,7 @@
     <nav class="nav nav--left" aria-label="Primary">
       {%- for item in site.nav_left -%}{%- include nav-link.html item=item -%}{%- endfor -%}
     </nav>
-    <a class="logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} — home">
+    <a class="logo" href="{{ '/' | relative_url }}" data-section="home" aria-label="{{ site.title }} — home">
       <img src="{{ site.logo_small | relative_url }}" alt="{{ site.title }}" width="480" height="226">
     </a>
     <nav class="nav nav--right" aria-label="Primary (continued)">

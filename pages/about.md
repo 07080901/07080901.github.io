@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: home     # same one-page layout; opens scrolled to this section
+section: about
 title: About
 permalink: /about/
 subtitle: "Blues · Funk · Make guitar mainstream again"

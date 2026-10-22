@@ -46,19 +46,8 @@ p { margin: 0 0 1em; }
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 .reveal.is-in, .no-js .reveal { opacity: 1; transform: none; }
 
-// Page-to-page slide for the home arrows (Chrome / Safari; others just navigate)
-@view-transition { navigation: auto; }
-html.slide-left::view-transition-old(root)  { animation: vt-out-right .55s var(--ease) both; }
-html.slide-left::view-transition-new(root)  { animation: vt-in-left .55s var(--ease) both; }
-html.slide-right::view-transition-old(root) { animation: vt-out-left .55s var(--ease) both; }
-html.slide-right::view-transition-new(root) { animation: vt-in-right .55s var(--ease) both; }
-@keyframes vt-in-left   { from { transform: translateX(-100%); } }
-@keyframes vt-in-right  { from { transform: translateX(100%); } }
-@keyframes vt-out-left  { to { transform: translateX(-100%); } }
-@keyframes vt-out-right { to { transform: translateX(100%); } }
-
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after, ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+  *, *::before, *::after {
     animation-duration: .01ms !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }

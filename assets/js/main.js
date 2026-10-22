@@ -1,6 +1,6 @@
 /* Site behaviour — no dependencies.
-   intro (pencil drawing) · header · mobile menu · home URL sync while scrolling
-   · arrow page slides · lazy YouTube · scroll reveal · mailing-list placeholder */
+   intro · header · mobile menu · one-page scrolling with real URLs
+   · lazy YouTube · scroll reveal · mailing-list placeholder */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -8,9 +8,9 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Intro: write the signature like a pencil ---------- */
-  var DRAW_MS = 2600;   // total drawing time
-  var HOLD_MS = 550;    // pause on the finished logo before the curtain lifts
+  /* ---------- Intro: one quick pencil pass, then fade ---------- */
+  var DRAW_MS = 1300;   // drawing time
+  var HOLD_MS = 200;    // pause on the finished logo
   var intro = $('#intro');
 
   function finishIntro() {
@@ -22,47 +22,36 @@
 
   if (intro && root.classList.contains('intro-play')) {
     var paths = $$('.intro__strokes path', intro);
-    var tip = $('.intro__tip', intro);
     var lens = paths.map(function (p) { var l = p.getTotalLength(); p.style.setProperty('--len', l); p.style.strokeDashoffset = l; return l; });
     var total = lens.reduce(function (a, b) { return a + b; }, 0);
-    var start = null, done = false, lifting = false;
+    var start = null, done = false, fading = false;
+    var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
 
-    var lift = function () {
-      if (lifting) return; lifting = true;
-      intro.classList.remove('is-drawing');
-      intro.classList.add('is-lifting');
+    var fade = function () {
+      if (fading) return; fading = true;
+      intro.classList.add('is-fading');
+      setTimeout(finishIntro, 550);
     };
-    var complete = function () {
-      paths.forEach(function (p) { p.style.strokeDashoffset = 0; });
-      done = true; intro.classList.remove('is-drawing');
-    };
-    var ease = function (t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
+    var complete = function () { done = true; paths.forEach(function (p) { p.style.strokeDashoffset = 0; }); };
     var frame = function (now) {
       if (done) return;
       if (start === null) start = now;
-      var t = Math.min(1, (now - start) / DRAW_MS), drawn = ease(t) * total, acc = 0;
+      var t = Math.min(1, (now - start) / DRAW_MS), drawn = easeOut(t) * total, acc = 0;
       for (var i = 0; i < paths.length; i++) {
-        var l = lens[i], part = Math.max(0, Math.min(l, drawn - acc));
-        paths[i].style.strokeDashoffset = l - part;
-        if (part > 0 && part < l && tip) {
-          var pt = paths[i].getPointAtLength(part);
-          tip.setAttribute('cx', pt.x); tip.setAttribute('cy', pt.y);
-        }
-        acc += l;
+        paths[i].style.strokeDashoffset = lens[i] - Math.max(0, Math.min(lens[i], drawn - acc));
+        acc += lens[i];
       }
       if (t < 1) requestAnimationFrame(frame);
-      else { complete(); setTimeout(lift, HOLD_MS); }
+      else { complete(); setTimeout(fade, HOLD_MS); }
     };
-    var go = function () { intro.classList.add('is-drawing'); requestAnimationFrame(frame); };
     var img = new Image();
-    img.onload = img.onerror = function () { setTimeout(go, 150); };
+    img.onload = img.onerror = function () { requestAnimationFrame(frame); };
     img.src = $('image', intro).getAttribute('href');
 
-    intro.addEventListener('animationend', function (e) { if (e.target === intro) finishIntro(); });
-    var skip = function () { complete(); lift(); };
+    var skip = function () { complete(); fade(); };
     intro.addEventListener('click', skip);
     document.addEventListener('keydown', function onKey() { skip(); document.removeEventListener('keydown', onKey); });
-    setTimeout(finishIntro, 9000); // safety net
+    setTimeout(finishIntro, 6000); // safety net
   } else {
     root.classList.add('intro-done');
   }
@@ -75,40 +64,80 @@
 
   /* ---------- Mobile drawer ---------- */
   var toggle = $('.menu-toggle'), drawer = $('#drawer');
-  if (toggle && drawer) {
-    var setOpen = function (open) {
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      if (open) { drawer.hidden = false; requestAnimationFrame(function () { drawer.classList.add('is-open'); }); document.body.style.overflow = 'hidden'; }
-      else { drawer.classList.remove('is-open'); setTimeout(function () { drawer.hidden = true; }, 350); document.body.style.overflow = ''; }
-    };
-    toggle.addEventListener('click', function () { setOpen(toggle.getAttribute('aria-expanded') !== 'true'); });
-    $$('a', drawer).forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
-  }
+  var setDrawer = function (open) {
+    if (!toggle || !drawer) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) { drawer.hidden = false; requestAnimationFrame(function () { drawer.classList.add('is-open'); }); document.body.style.overflow = 'hidden'; }
+    else { drawer.classList.remove('is-open'); setTimeout(function () { drawer.hidden = true; }, 350); document.body.style.overflow = ''; }
+  };
+  if (toggle) toggle.addEventListener('click', function () { setDrawer(toggle.getAttribute('aria-expanded') !== 'true'); });
 
-  /* ---------- Arrow links: remember slide direction for the next page ---------- */
-  $$('[data-slide]').forEach(function (a) {
-    a.addEventListener('click', function () { try { sessionStorage.setItem('slide', a.dataset.slide); } catch (e) {} });
-  });
-
-  /* ---------- Home only: change the URL as sections scroll past ---------- */
-  var sections = document.body.classList.contains('is-home') ? $$('[data-url]') : [];
-  if (sections.length && 'IntersectionObserver' in window && history.replaceState) {
+  /* ---------- One page: menu clicks scroll, URL follows the scroll ---------- */
+  var onepage = $('.onepage');
+  if (onepage) {
+    var sections = $$('[data-url]', onepage);
+    var byName = {};
+    sections.forEach(function (s) { byName[s.id] = s; });
     var navLinks = $$('.nav__link[data-path]');
     var current = location.pathname;
-    var setUrl = function (el) {
-      var url = el.dataset.url;
-      if (url === current) return;
-      current = url;
-      history.replaceState(history.state, '', url);
+    var locked = false, unlockTimer;
+
+    var mark = function (el) {
       if (el.dataset.title) document.title = el.dataset.title;
-      navLinks.forEach(function (a) { a.classList.toggle('is-active', a.dataset.path === url); });
+      navLinks.forEach(function (a) { a.classList.toggle('is-active', a.dataset.path === el.dataset.url); });
     };
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) setUrl(en.target); });
-    }, { rootMargin: '-45% 0px -50% 0px' });   // fires when a section crosses the middle of the screen
-    sections.forEach(function (s) { spy.observe(s); });
-    // the mailing list + footer keep the last section's URL; back at the top → "/"
+    var jump = function (el, smooth) {
+      var behavior = smooth && !reduced ? 'smooth' : 'auto';
+      if (el.id === 'home') window.scrollTo({ top: 0, behavior: behavior });
+      else el.scrollIntoView({ behavior: behavior, block: 'start' });
+    };
+    var go = function (el, push) {
+      locked = true; clearTimeout(unlockTimer);
+      if (el.dataset.url !== current) {
+        current = el.dataset.url;
+        history[push ? 'pushState' : 'replaceState']({ section: el.id }, '', current);
+      }
+      mark(el); jump(el, true);
+      unlockTimer = setTimeout(function () { locked = false; }, 1100);
+    };
+
+    // open /music/, /live/ … already scrolled to their section
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var startEl = byName[onepage.dataset.start];
+    if (startEl && startEl.id !== 'home') requestAnimationFrame(function () { jump(startEl, false); });
+
+    // menu, logo, hero button, scroll cue
+    $$('a[data-section]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var el = byName[a.dataset.section];
+        if (!el || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        setDrawer(false);
+        go(el, true);
+      });
+    });
+    // browser back / forward
+    window.addEventListener('popstate', function () {
+      var el = sections.filter(function (s) { return s.dataset.url === location.pathname; })[0];
+      if (el) { current = location.pathname; locked = true; clearTimeout(unlockTimer); mark(el); jump(el, true);
+        unlockTimer = setTimeout(function () { locked = false; }, 1100); }
+    });
+    // while scrolling, the section crossing the middle of the screen owns the URL
+    if ('IntersectionObserver' in window) {
+      var spy = new IntersectionObserver(function (entries) {
+        if (locked) return;
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          if (el.dataset.url === current) return;
+          current = el.dataset.url;
+          history.replaceState({ section: el.id }, '', current);
+          mark(el);
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      sections.forEach(function (s) { spy.observe(s); });
+    }
   }
 
   /* ---------- Lazy YouTube ---------- */
@@ -134,7 +163,7 @@
   if ('IntersectionObserver' in window && !reduced) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });

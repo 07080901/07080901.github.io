@@ -15,9 +15,10 @@
   --font: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --bar-h: 76px;          // menu row height
-  --social-h: 34px;       // social icons row height
+  --social-h: 40px;       // social icons row height
   --header-h: calc(var(--bar-h) + var(--social-h));
   --gutter: clamp(16px, 4vw, 48px);
   --max: 1200px;
   --ease: cubic-bezier(.7, 0, .2, 1);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);   // smooth, quick-settling hovers
 }

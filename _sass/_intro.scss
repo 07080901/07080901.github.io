@@ -1,43 +1,22 @@
 // ------------------------------------------------------------
-//  INTRO — the signature is written like a pencil drawing.
-//  The drawing itself is driven by assets/js/main.js (speed: DRAW_MS).
+//  INTRO — two steps: the signature is written in one quick
+//  pencil pass, then the overlay fades away.
+//  Drawing speed lives in assets/js/main.js (DRAW_MS).
 // ------------------------------------------------------------
 .intro {
   position: fixed; inset: 0; z-index: 1000;
   display: grid; place-items: center;
-  background: radial-gradient(ellipse at 50% 45%, #0d1726 0%, var(--bg) 70%);
+  background: var(--bg);
   cursor: pointer;
+  transition: opacity .5s ease;
 }
 html.intro-skip .intro, .intro.is-gone { display: none; }
 html.intro-play:not(.intro-done) body { overflow: hidden; }
 
-.intro__logo { width: 82vw; max-width: 760px; height: auto; overflow: visible; }
+.intro__logo { width: 76vw; max-width: 680px; height: auto; overflow: visible; }
 .intro__strokes path { stroke-dasharray: var(--len, 4000); stroke-dashoffset: var(--len, 4000); }
-.intro__tip {
-  fill: #fff; opacity: 0;
-  filter: drop-shadow(0 0 6px rgba(115, 194, 251, .9));
-  transition: opacity .3s;
-}
-.intro.is-drawing .intro__tip { opacity: .95; }
 .intro__skip {
   position: absolute; right: 24px; bottom: 22px; background: none; border: 0; cursor: pointer;
   font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
-  opacity: 0; animation: intro-fade .4s ease .8s forwards;
 }
-.intro.is-lifting {
-  animation: intro-lift .9s var(--ease) forwards;
-  .intro__logo { animation: intro-shrink .9s var(--ease) forwards; }
-}
-@keyframes intro-fade   { to { opacity: 1; } }
-@keyframes intro-lift   { to { transform: translateY(-100%); } }
-@keyframes intro-shrink { to { transform: translateY(-40px) scale(.9); opacity: 0; } }
-
-// page entrance after the intro
-html.intro-play:not(.intro-done) {
-  .site-header { transform: translateY(-100%); opacity: 0; }
-  .hero__content, .hero__arrow { opacity: 0; transform: translateY(24px); }
-}
-html.intro-play {
-  .site-header { transition: transform .8s var(--ease) .1s, opacity .8s ease .1s, background .3s; }
-  .hero__content, .hero__arrow { transition: opacity 1s ease .35s, transform 1s var(--ease) .35s; }
-}
+.intro.is-fading { opacity: 0; pointer-events: none; }

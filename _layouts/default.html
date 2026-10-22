@@ -3,7 +3,7 @@
   {%- include head.html -%}
   <body class="{% if page.layout == 'home' %}is-home{% else %}is-inner{% endif %}">
     <a class="skip-link" href="#main">Skip to content</a>
-    {%- if page.layout == 'home' and site.intro.enabled -%}
+    {%- if page.section == 'home' and site.intro.enabled -%}
       {%- include intro.html -%}
     {%- endif -%}
     {%- include header.html -%}

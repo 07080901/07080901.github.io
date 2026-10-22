@@ -29,20 +29,20 @@
   &.is-active { color: var(--accent); }
 }
 
-// Logo: on hover it just tilts, nothing else
+// Logo: grows a touch on hover, nothing else
 .logo { display: block; line-height: 0; }
 .logo img {
   height: 58px; width: auto;
-  transition: transform .45s cubic-bezier(.34, 1.56, .64, 1);
+  transition: transform .5s var(--ease-out);
 }
-.logo:hover img, .logo:focus-visible img { transform: rotate(-7deg); }
+.logo:hover img, .logo:focus-visible img { transform: scale(1.08); }
 
 .site-header__social {
   height: var(--social-h); display: flex; justify-content: center; align-items: flex-start;
 }
 .social {
-  display: flex; gap: 18px; list-style: none; margin: 0; padding: 0;
-  a { display: block; width: 19px; height: 19px; color: var(--muted); transition: color .2s, transform .2s; }
+  display: flex; gap: 24px; list-style: none; margin: 0; padding: 0;
+  a { display: block; width: 24px; height: 24px; color: var(--muted); transition: color .2s, transform .2s; }
   a:hover { color: var(--accent); transform: translateY(-2px); }
   svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   .fill { fill: currentColor; stroke: none; }
@@ -71,7 +71,7 @@
   .nav__link { font-size: 2.2rem; letter-spacing: .02em; } }
 
 @media (max-width: 760px) {
-  :root { --bar-h: 64px; --social-h: 32px; }
+  :root { --bar-h: 64px; --social-h: 38px; }
   .nav { display: none; }
   .menu-toggle, .menu-spacer { display: block; }
   .menu-spacer { width: 30px; }

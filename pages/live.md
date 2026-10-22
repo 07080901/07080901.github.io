@@ -1,5 +1,6 @@
 ---
-layout: live
+layout: home     # same one-page layout; opens scrolled to this section
+section: live
 title: "Live!"
 permalink: /live/
 subtitle: "Pubs, clubs & jam nights"

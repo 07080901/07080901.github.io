@@ -4,20 +4,18 @@ Live at **https://07080901.github.io**. Built with Jekyll and published by GitHu
 
 ## Edit the site
 
-Every page is one Markdown file in **`pages/`**. Open it on GitHub, click the ✏️ pencil, change the text and commit. The site updates in about a minute.
+The site is **one long page**: hero → Music → Live! → Videos → About → mailing list → copyright. Each section is one Markdown file in **`pages/`**. Open it on GitHub, click the ✏️ pencil, change the text and commit. The site updates in about a minute.
 
-| Page | File | What you edit there |
+| Section | File | What you edit there |
 |---|---|---|
-| Home (`/`) | `pages/home.md` | headline, "new single" text, Spotify link, background picture, arrow labels |
-| About | `pages/about.md` | your bio (plain Markdown) and portrait photo |
-| Live! | `pages/live.md` | the `shows:` list. Past dates move to "Past gigs" by themselves |
-| Music | `pages/music.md` | the `releases:` list with Spotify / Apple Music / SoundCloud links |
-| Videos | `pages/videos.md` | the `videos:` list (YouTube IDs) |
+| Top (`/`) | `pages/home.md` | your name, the "Check out my music" button, background picture, scroll text |
+| Music (`/music/`) | `pages/music.md` | the `releases:` list with Spotify / Apple Music / SoundCloud links |
+| Live! (`/live/`) | `pages/live.md` | the `shows:` list. Past dates move to "Past gigs" by themselves |
+| Videos (`/videos/`) | `pages/videos.md` | the `videos:` list (YouTube IDs) |
+| About (`/about/`) | `pages/about.md` | your bio (plain Markdown) and portrait photo |
 | Not-found page | `pages/404.md` | text shown for broken links |
 
-The home page builds its LIVE! and MUSIC sections from `live.md` and `music.md`, so you only edit each gig or release once.
-
-Shared settings (menu, social links in order, mailing-list form, intro on/off) live in **`_config.yml`**.
+`title:` and `subtitle:` in each file are the section's heading. Change the section order with `sections:` in **`_config.yml`**. The same file holds the menu, the social links (shown in that order), the mailing-list form and the intro on/off switch.
 
 ### Quick recipes
 
@@ -34,16 +32,15 @@ pages/          ← the pages you edit (Markdown)
 _config.yml     ← site-wide settings
 assets/img/     ← logo, pictures, favicon, share image
 assets/css/  _sass/          ← styles (colours are at the top of _sass/_variables.scss)
-assets/js/main.js            ← intro drawing, homepage scroll/URL sync, menu, videos
+assets/js/main.js            ← intro drawing, menu scrolling + URLs, videos
 _layouts/  _includes/        ← page templates (you shouldn't need to touch these)
 .github/workflows/pages.yml  ← builds & publishes the site
 ```
 
 ## Good to know
 
-- **Intro:** your signature is written stroke by stroke, then the screen lifts. It plays once per visit and only on the home page. Click or press any key to skip it. It's skipped automatically for people who prefer reduced motion. The strokes in `_includes/intro.html` were traced from `assets/img/logo/ben.png`, so if you change the logo, either get a new trace or set `intro.enabled: false`.
-- **Homepage scrolling:** as you scroll the home page, the address bar changes to `/live/` and `/music/` (and back to `/` at the top), so you can copy and share a link to the section you're looking at.
-- **Arrows:** the big ← and → on the home page open Live! and Music with a slide animation (Chrome, Edge, Safari; other browsers just open the page).
+- **Intro:** your signature is written in one quick pencil pass, then the screen fades away (about 2 seconds). It plays once per visit, and only when someone lands on `/`. Click or press any key to skip it. The strokes in `_includes/intro.html` were traced from `assets/img/logo/ben.png`, so if you change the logo, either get a new trace or set `intro.enabled: false`. The speed is `DRAW_MS` at the top of `assets/js/main.js`.
+- **Menu and addresses:** clicking Music, Live!, Videos or About scrolls smoothly to that section and the address bar changes to `/music/`, `/live/`… It also changes by itself while you scroll, and the matching menu item lights up. The logo takes you back to the top (`/`). Back and forward buttons work, and anyone opening `/live/` directly lands on that section.
 - **Publishing:** in **Settings → Pages**, *Source* must be **GitHub Actions**. The site rebuilds on every commit and once a day, which is what moves past gigs into "Past gigs". GitHub pauses the daily run after 60 days without commits; turn it back on from the **Actions** tab if that happens.
 - **Action updates:** Dependabot opens a pull request when an action in the workflow has a new version. Merge it to stay free of warnings.
 

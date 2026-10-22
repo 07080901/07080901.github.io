@@ -1,8 +1,9 @@
 ---
-layout: videos
+layout: home     # same one-page layout; opens scrolled to this section
+section: videos
 title: Videos
 permalink: /videos/
-subtitle: "Placeholder videos — swap in your own"
+subtitle: "Placeholder videos: swap in your own"
 # ------------------------------------------------------------------
 # VIDEOS — youtube_id is the part after "watch?v=" (or after youtu.be/)
 #   https://www.youtube.com/watch?v=5c21kGCgaTc  →  5c21kGCgaTc

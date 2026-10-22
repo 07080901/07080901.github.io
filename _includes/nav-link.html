@@ -1,1 +1,1 @@
-<a class="nav__link{% if page.url == include.item.url %} is-active{% endif %}" href="{{ include.item.url | relative_url }}" data-path="{{ include.item.url | relative_url }}">{{ include.item.title }}</a>
+<a class="nav__link{% if page.section == include.item.section %} is-active{% endif %}" href="{{ include.item.url | relative_url }}" data-section="{{ include.item.section }}" data-path="{{ include.item.url | relative_url }}">{{ include.item.title }}</a>

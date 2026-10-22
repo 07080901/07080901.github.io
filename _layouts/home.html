@@ -1,52 +1,80 @@
 ---
 layout: default
 ---
-{%- assign live = site.pages | where: "layout", "live" | first -%}
-{%- assign music = site.pages | where: "layout", "music" | first -%}
+{%- comment -%}
+  The whole site is this one page. /, /music/, /live/, /videos/ and /about/
+  all render it; each opens scrolled to its own section (page.section).
+  Section content comes from the matching file in /pages.
+{%- endcomment -%}
+{%- assign home = site.pages | where: "section", "home" | first -%}
 
-<section class="hero" data-url="{{ '/' | relative_url }}" data-title="{{ site.title }}">
-  <img class="hero__img" src="{{ page.hero_image | relative_url }}" alt="" fetchpriority="high" decoding="async">
+<div class="onepage" data-start="{{ page.section | default: 'home' }}">
+
+<section class="hero" id="home" data-url="{{ '/' | relative_url }}" data-title="{{ site.title }}">
+  <div class="hero__media"><img class="hero__img" src="{{ home.hero_image | relative_url }}" alt="" fetchpriority="high" decoding="async"></div>
   <div class="hero__content">
-    <h1 class="hero__title">{{ page.headline }}</h1>
-    <p class="hero__sub">{{ page.subhead }}</p>
-    <a class="btn btn--spotify" href="{{ page.button_url }}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 9.5c3.5-1 7-.7 10 1M7.5 12.8c3-.8 5.8-.5 8.3.9M8 16c2.4-.6 4.6-.4 6.6.7"/></svg>
-      {{ page.button_text }}
+    <h1 class="hero__title">{{ home.headline }}</h1>
+    {%- assign target = site.pages | where: "section", home.button_section | first -%}
+    {%- if target -%}
+    <a class="btn" href="{{ target.url | relative_url }}" data-section="{{ target.section }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+      {{ home.button_text }}
     </a>
+    {%- endif -%}
   </div>
-  {%- if live -%}
-  <a class="hero__arrow hero__arrow--left" href="{{ live.url | relative_url }}" data-slide="left">
-    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M40 12L20 32l20 20"/></svg>
-    <span>{{ page.left_arrow }}</span>
+  {%- assign first = site.sections | first -%}
+  {%- assign first_page = site.pages | where: "section", first | first -%}
+  <a class="scroll-cue" href="{{ first_page.url | relative_url }}" data-section="{{ first }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    <span>{{ home.scroll_text }}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
   </a>
-  {%- endif -%}
-  {%- if music -%}
-  <a class="hero__arrow hero__arrow--right" href="{{ music.url | relative_url }}" data-slide="right">
-    <span>{{ page.right_arrow }}</span>
-    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M24 12l20 20-20 20"/></svg>
-  </a>
-  {%- endif -%}
-  <a class="hero__scroll" href="#home-live" aria-label="Scroll down"><span></span></a>
 </section>
 
-{%- if live -%}
-<section class="section section--alt reveal" id="home-live" data-url="{{ live.url | relative_url }}" data-title="{{ live.title }} | {{ site.title }}">
-  <header class="section__head">
-    <h2 class="display">{{ live.title }}</h2>
-    <a class="link-arrow" href="{{ live.url | relative_url }}">All gigs</a>
-  </header>
-  {%- include shows.html shows=live.shows limit=page.live_limit -%}
-</section>
-{%- endif -%}
+{%- for name in site.sections -%}
+  {%- assign s = site.pages | where: "section", name | first -%}
+  {%- if s -%}
+  <section class="section section--{{ name }}{% cycle '', ' section--alt' %}" id="{{ name }}" data-url="{{ s.url | relative_url }}" data-title="{{ s.title }} | {{ site.title }}">
+    <div class="section__inner reveal">
+      <header class="section__head">
+        <h2 class="display">{{ s.title }}</h2>
+        {%- if s.subtitle %}<p class="section__sub">{{ s.subtitle }}</p>{% endif -%}
+      </header>
+      {%- assign body = s.content | strip -%}
 
-{%- if music -%}
-<section class="section reveal" id="home-music" data-url="{{ music.url | relative_url }}" data-title="{{ music.title }} | {{ site.title }}">
-  <header class="section__head">
-    <h2 class="display">{{ music.title }}</h2>
-    <a class="link-arrow" href="{{ music.url | relative_url }}">All music</a>
-  </header>
-  {%- include releases.html releases=music.releases limit=page.music_limit -%}
-</section>
-{%- endif -%}
+      {%- case name -%}
+      {%- when "music" -%}
+        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
+        {%- include releases.html releases=s.releases -%}
+
+      {%- when "live" -%}
+        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
+        <h3 class="list-title">Upcoming</h3>
+        {%- include shows.html shows=s.shows -%}
+        <h3 class="list-title">Past gigs</h3>
+        {%- include shows.html shows=s.shows past=true -%}
+
+      {%- when "videos" -%}
+        {%- if body != "" %}<div class="prose prose--intro">{{ body | markdownify }}</div>{% endif -%}
+        <ul class="video-grid" role="list">
+          {%- for v in s.videos -%}<li>{%- include video.html video=v -%}</li>{%- endfor -%}
+        </ul>
+
+      {%- else -%}
+        {%- if s.portrait -%}
+        <div class="about-grid">
+          <img class="about-grid__img" src="{{ s.portrait | relative_url }}" alt="{{ site.artist_name }}" loading="lazy" decoding="async">
+          <div class="prose">{{ body | markdownify }}</div>
+        </div>
+        {%- else -%}
+        <div class="prose">{{ body | markdownify }}</div>
+        {%- endif -%}
+      {%- endcase -%}
+    </div>
+  </section>
+  {%- endif -%}
+{%- endfor -%}
 
 {%- include mailing-list.html -%}
+
+</div>

@@ -20,17 +20,31 @@ intro:
   enabled: true
   once_per_session: true   # false = play on every home-page visit
 
-# --- Menu: two links left of the logo, two links right ---------
+# --- Menu: two links left of the logo, two right ---------------
+# "section" must match the section: line in that page's .md file.
+# Clicking a link scrolls the home page to that section.
 nav_left:
-  - title: About
-    url: /about/
-  - title: Live!
-    url: /live/
-nav_right:
   - title: Music
     url: /music/
+    section: music
+  - title: Live!
+    url: /live/
+    section: live
+nav_right:
   - title: Videos
     url: /videos/
+    section: videos
+  - title: About
+    url: /about/
+    section: about
+
+# --- Order of the sections on the home page (top to bottom) ----
+# The mailing list and copyright always come last.
+sections:
+  - music
+  - live
+  - videos
+  - about
 
 # --- Social links (shown under the menu, in this order) --------
 # Leave a link "" to hide that icon.
