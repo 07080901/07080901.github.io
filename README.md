@@ -23,5 +23,7 @@ The site is just a **single long page**, with each section declared in a Markdow
 - **Change a picture:** upload it to `assets/img/...` (JPG is fine), then put its path in the page's file, e.g. `hero_image: /assets/img/home/my-photo.jpg`.
 - **Mailing list:** paste your provider's form action URL (Mailchimp, Buttondown, Brevo, Formspree…) into `mailing_list.action` in `_config.yml`.
 
-### Info
-Used this repo as a starting point: [*jekyll-theme-console*](https://github.com/b2a3e8/jekyll-theme-console)*,* all rights reserved regarding its original files.
+### License
+Used this repo as a starting point: [*jekyll-theme-console*](https://github.com/b2a3e8/jekyll-theme-console)*,* which is [MIT Licensed](https://github.com/b2a3e8/jekyll-theme-console/blob/master/LICENSE.txt). All rights reserved regarding its original files.  
+  
+Concerning the current repository: *(C) 2026 Andrea Benini - [MIT License](/LICENSE).*
