@@ -35,6 +35,7 @@ _config.yml     ← site-wide settings
 assets/img/     ← logo, pictures, favicon, share image
 assets/css/  _sass/          ← styles (colours are at the top of _sass/_variables.scss)
 assets/js/main.js            ← intro drawing, menu scrolling + URLs, videos
+assets/fonts/                ← Space Grotesk (served from the site, licence in OFL.txt)
 _layouts/  _includes/        ← page templates (you shouldn't need to touch these)
 .github/workflows/pages.yml  ← builds & publishes the site
 ```

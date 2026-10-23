@@ -258,6 +258,15 @@
     }
   }
 
+  /* ---------- Pause looping animations while they're off-screen ----------
+     (hero stage lights + scroll cue, video play pulses; CSS: .is-offscreen) */
+  if ('IntersectionObserver' in window) {
+    var offscreen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('is-offscreen', !en.isIntersecting); });
+    });
+    $$('.hero, .video').forEach(function (el) { offscreen.observe(el); });
+  }
+
   /* ---------- Lazy YouTube ---------- */
   $$('[data-youtube]').forEach(function (btn) {
     btn.addEventListener('click', function () {

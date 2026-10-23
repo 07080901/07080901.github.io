@@ -103,11 +103,23 @@
   &:hover img { transform: scale(1.04); opacity: 1; } }
 .video__play {
   position: absolute; left: 50%; top: 50%; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%;
-  background: var(--accent); display: grid; place-items: center; box-shadow: 0 0 0 0 rgba(115, 194, 251, .55); animation: pulse 2.2s infinite;
-  animation-delay: calc(var(--i, 0) * .35s);   // each video pulses a beat after the one before
+  background: var(--accent); display: grid; place-items: center; z-index: 1;
   svg { width: 30px; height: 30px; fill: var(--on-accent); margin-left: 4px; }
+  // the pulsing ring: a circle behind the button that grows and fades.
+  // Only scale + opacity move, so the graphics card animates it without repainting.
+  &::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%;
+    background: rgba(115, 194, 251, .55); will-change: transform, opacity;
+    animation: pulse 2.2s infinite;
+    animation-delay: calc(var(--i, 0) * .35s);   // each video pulses a beat after the one before
+  }
 }
-@keyframes pulse { 70% { box-shadow: 0 0 0 20px rgba(115, 194, 251, 0); } 100% { box-shadow: 0 0 0 0 rgba(115, 194, 251, 0); } }
+// grows to 20px past the edge (74px → 114px) while fading out, then rests
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 70%, 100% { transform: scale(1.54); opacity: 0; } }
+
+// Off-screen animations are paused (main.js adds .is-offscreen), so nothing
+// keeps working out of sight; they carry on from the same spot when back.
+.video.is-offscreen .video__play::before { animation-play-state: paused; }
 .video__caption { margin-top: 12px; font-weight: 500; display: grid; gap: 4px;
   a { font-size: .78rem; color: var(--muted); text-decoration: none; &:hover { color: var(--accent); } } }
 

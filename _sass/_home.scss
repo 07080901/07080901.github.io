@@ -22,6 +22,8 @@
   --beam: rgba(234, 243, 251, .13); left: calc(74% - 45vh);
   animation: stage-swing 27s ease-in-out -15s infinite alternate-reverse;
 }
+.hero.is-offscreen .hero__media::before, .hero.is-offscreen .hero__media::after,
+.hero.is-offscreen .scroll-cue svg { animation-play-state: paused; }   // see main.js
 @keyframes stage-swing {
   from { transform: rotate(-24deg); }
   to   { transform: rotate(24deg); }
