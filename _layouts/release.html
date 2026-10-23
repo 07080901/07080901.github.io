@@ -46,7 +46,7 @@ layout: default
       <ul class="platforms" role="list">
         {%- for l in page.links %}
         <li class="reveal">
-          <a class="platform" href="{{ l.url }}" target="_blank" rel="noopener">
+          <a class="platform platform--{{ l.name | slugify }}" href="{{ l.url }}" target="_blank" rel="noopener">
             {%- include icon.html name=l.name -%}
             <span class="platform__name">{{ l.name }}</span>
             <span class="platform__go">Play</span>
