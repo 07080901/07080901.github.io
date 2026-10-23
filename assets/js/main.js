@@ -282,8 +282,9 @@
 
   /* ---------- Release page: sticky bar gets its glass once content slides under it,
                 and shows the title once the big one has scrolled away ---------- */
-  // While its title is showing, scrolling down also folds away the header's
-  // social icons (html.social-tucked); they come back once the title leaves the bar.
+  // Once the bar has turned black (content sliding under it), scrolling down also
+  // folds away the header's social icons (html.social-tucked); they come back
+  // when the bar turns clear again at the top of the page.
   var relBar = $('#rel-bar'), relTitle = $('.rel__title');
   if (relBar && relTitle) {
     var barTick = false, barY = window.scrollY;
@@ -294,9 +295,10 @@
       // (which moves the bar up) can't flip the title back and forth
       var line = (parseFloat(getComputedStyle(root).scrollPaddingTop) || 0) + relBar.offsetHeight;
       var hasTitle = relTitle.getBoundingClientRect().bottom < line;
-      relBar.classList.toggle('is-stuck', y > 4);
+      var stuck = y > 4;
+      relBar.classList.toggle('is-stuck', stuck);
       relBar.classList.toggle('has-title', hasTitle);
-      if (!hasTitle) root.classList.remove('social-tucked');
+      if (!stuck) root.classList.remove('social-tucked');
       else if (y > barY + 4) root.classList.add('social-tucked');
       if (Math.abs(y - barY) > 4) barY = y;
     };
