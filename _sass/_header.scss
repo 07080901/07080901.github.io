@@ -33,6 +33,13 @@
 .scroll-up .nav__link.is-active::after { transform-origin: right; }
 .nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
+// LIVE! in the menu: fluo yellow, fluo orange on hover; the "!" always stays
+// white and the underline takes the colour of the text
+.nav__link.nav__link--live { color: var(--live); transition: color .25s;
+  &::after { background: currentColor; transition: transform .35s var(--ease), background-color .25s; }
+  &:hover, &:focus-visible { color: var(--live-hover); }
+  .bang { color: var(--ink); } }
+
 // Logo: a light maya-blue tint while hovered. The tint is the accent colour cut
 // to the logo's own shape (--logo-mask, set in header.html), so any PNG works.
 .logo { position: relative; display: block; line-height: 0; }

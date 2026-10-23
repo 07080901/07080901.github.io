@@ -37,7 +37,7 @@ layout: default
   <section class="section section--{{ name }}{% cycle '', ' section--alt' %}" id="{{ name }}" data-url="{% include clean-url.html url=s.url %}" data-title="{{ s.title }} · {{ site.title }}">
     <div class="section__inner">
       <header class="section__head reveal">
-        <h2 class="display">{{ s.title }}</h2>
+        <h2 class="display">{{ s.title | replace: '!', '<span class="bang">!</span>' }}</h2>
         {%- if s.subtitle %}<p class="section__sub">{{ s.subtitle }}</p>{% endif -%}
       </header>
       {%- assign body = s.content | strip -%}
