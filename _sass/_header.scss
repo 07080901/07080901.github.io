@@ -35,10 +35,13 @@
 
 // LIVE! in the menu: fluo yellow, fluo orange on hover; the "!" always stays
 // white and the underline takes the colour of the text
-.nav__link.nav__link--live { color: var(--live); transition: color .25s;
+.nav__link.nav__link--live { color: var(--live); transition: color .25s, text-shadow .25s;
+  text-shadow: 0 0 30px rgba(230, 255, 46, .28);   // same glow as the Live! section title
   &::after { background: currentColor; transition: transform .35s var(--ease), background-color .25s; }
-  &:hover, &:focus-visible { color: var(--live-hover); }
-  .bang { color: var(--ink); } }
+  // plain white while you are in the Live! section, and on release pages
+  &.is-active, .is-release & { color: var(--ink); text-shadow: none; }
+  &:hover, &:focus-visible { color: var(--live-hover); text-shadow: 0 0 30px rgba(255, 122, 31, .32); }
+  .bang { color: var(--ink); text-shadow: none; } }
 
 // Logo: a light maya-blue tint while hovered. The tint is the accent colour cut
 // to the logo's own shape (--logo-mask, set in header.html), so any PNG works.

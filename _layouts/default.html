@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ page.lang | default: site.lang | default: 'en' }}">
   {%- include head.html -%}
-  <body class="{% if page.layout == 'home' %}is-home{% else %}is-inner{% endif %}">
+  <body class="{% if page.layout == 'home' %}is-home{% else %}is-inner{% endif %}{% if page.layout == 'release' %} is-release{% endif %}">
     <a class="skip-link" href="#main">Skip to content</a>
     {%- if page.section == 'home' and site.intro.enabled -%}
       {%- include intro.html -%}
