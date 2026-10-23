@@ -33,15 +33,15 @@
 .scroll-up .nav__link.is-active::after { transform-origin: right; }
 .nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-// LIVE! in the menu: fluo yellow, fluo orange on hover; the "!" always stays
+// LIVE! in the menu: fluo yellow, fluo amber on hover; the "!" always stays
 // white and the underline takes the colour of the text
 .nav__link.nav__link--live { color: var(--live); transition: color .25s, text-shadow .25s;
   text-shadow: 0 0 30px rgba(230, 255, 46, .28);   // same glow as the Live! section title
   &::after { background: currentColor; transition: transform .35s var(--ease), background-color .25s; }
   // plain white while you are in the Live! section, and on release pages
   &.is-active, .is-release & { color: var(--ink); text-shadow: none; }
-  &:hover, &:focus-visible { color: var(--live-hover); text-shadow: 0 0 30px rgba(255, 122, 31, .32); }
-  // …and in those two cases hover brings back the yellow instead of the orange
+  &:hover, &:focus-visible { color: var(--live-hover); text-shadow: 0 0 30px rgba(255, 194, 26, .32); }
+  // …and in those two cases hover brings back the yellow instead of the amber
   &.is-active:hover, &.is-active:focus-visible, .is-release &:hover, .is-release &:focus-visible {
     color: var(--live); text-shadow: 0 0 30px rgba(230, 255, 46, .28); }
   .bang { color: var(--ink); text-shadow: none; } }
