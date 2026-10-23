@@ -210,8 +210,8 @@
   padding: .75em 1.6em; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--accent); color: var(--accent);
   font-size: .95rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; transition: background-color .3s ease, color .3s ease, box-shadow .3s ease;
 }
-// a play button was pressed: the links glow once when the page arrives
-.rel__listen.is-flash .platforms { animation: listen-glow 1.4s var(--ease-out) .45s; }
+// a play button was pressed: the links glow once as they arrive on screen
+.rel__listen.is-flash .platforms { animation: listen-glow 1.4s var(--ease-out); }   // started by main.js as the list arrives
 @keyframes listen-glow {
   30% { box-shadow: 0 0 0 2px var(--accent), 0 0 50px -6px rgba(115, 194, 251, .55); }
   100% { box-shadow: 0 0 0 2px rgba(115, 194, 251, 0), 0 0 50px -6px rgba(115, 194, 251, 0); }

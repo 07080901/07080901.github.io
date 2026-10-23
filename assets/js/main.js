@@ -304,14 +304,24 @@
     updateBar();
   }
 
-  /* ---------- Release page: every play button glides down to the streaming links ---------- */
-  var listen = $('#listen');
+  /* ---------- Release page: every play button glides to the streaming links ----------
+     The links glow once as they arrive on screen (straight away if already visible). */
+  var listen = $('#listen'), platforms = $('.platforms');
   if (listen) {
+    var flash = function () { listen.classList.remove('is-flash'); void listen.offsetWidth; listen.classList.add('is-flash'); };
+    var arrival = null;
     $$('a[data-listen]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
         listen.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-        listen.classList.remove('is-flash'); void listen.offsetWidth; listen.classList.add('is-flash');
+        if (arrival) arrival.disconnect();
+        if (!platforms || !('IntersectionObserver' in window)) { flash(); return; }
+        // "arrived" = most of the list on screen (or most of the screen, for a long list)
+        var need = Math.min(.6, window.innerHeight * .8 / Math.max(1, platforms.offsetHeight));
+        arrival = new IntersectionObserver(function (entries) {
+          if (entries[0].intersectionRatio >= need) { arrival.disconnect(); arrival = null; flash(); }
+        }, { threshold: [0, need, 1] });
+        arrival.observe(platforms);
       });
     });
   }

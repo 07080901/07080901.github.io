@@ -4,7 +4,7 @@ layout: default
 {%- comment -%}
   One release (single / EP / album). Content comes from a file in pages/music/:
   text = the .md body, tracks: = tracklist, links: = where to listen.
-  Every play button glides down to the links (#listen).
+  Every play button glides to the links (#listen), which sit above the tracklist.
 {%- endcomment -%}
 {%- assign music = site.pages | where: "section", "music" | first -%}
 <article class="rel">
@@ -40,6 +40,23 @@ layout: default
     <div class="prose rel__story reveal">{{ content }}</div>
     {%- endif %}
 
+    {%- if page.links %}
+    <section class="rel__block rel__listen" id="listen" aria-labelledby="listen-title">
+      <h2 class="list-title reveal" id="listen-title">Listen on</h2>
+      <ul class="platforms" role="list">
+        {%- for l in page.links %}
+        <li class="reveal">
+          <a class="platform" href="{{ l.url }}" target="_blank" rel="noopener">
+            {%- include icon.html name=l.name -%}
+            <span class="platform__name">{{ l.name }}</span>
+            <span class="platform__go">Play</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
     {%- if page.tracks %}
     <section class="rel__block" aria-labelledby="tracklist">
       <h2 class="list-title reveal" id="tracklist">Tracklist</h2>
@@ -55,23 +72,6 @@ layout: default
         </li>
         {%- endfor %}
       </ol>
-    </section>
-    {%- endif %}
-
-    {%- if page.links %}
-    <section class="rel__block rel__listen" id="listen" aria-labelledby="listen-title">
-      <h2 class="list-title reveal" id="listen-title">Listen on</h2>
-      <ul class="platforms" role="list">
-        {%- for l in page.links %}
-        <li class="reveal">
-          <a class="platform" href="{{ l.url }}" target="_blank" rel="noopener">
-            {%- include icon.html name=l.name -%}
-            <span class="platform__name">{{ l.name }}</span>
-            <span class="platform__go">Play</span>
-          </a>
-        </li>
-        {%- endfor %}
-      </ul>
     </section>
     {%- endif %}
   </div>
