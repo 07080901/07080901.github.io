@@ -211,7 +211,9 @@
   font-size: .95rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; transition: background-color .3s ease, color .3s ease, box-shadow .3s ease;
 }
 // Each platform's icon in its brand colour, softened to a pastel so it sits
-// with the site's blues (unknown names keep the maya blue)
+// with the site's blues (unknown names keep the maya blue). The header's
+// social icons use the same colours, but only while hovered.
+.platform--instagram     { --brand: #ff8ac4; }
 .platform--spotify       { --brand: #72dc98; }
 .platform--apple-music   { --brand: #ff8595; }
 .platform--youtube,

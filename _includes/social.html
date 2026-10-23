@@ -2,7 +2,7 @@
 <ul class="social" role="list">
 {%- for s in site.social -%}
   {%- if s.url != "" -%}
-  <li><a href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">{%- include icon.html name=s.name -%}</a></li>
+  <li><a class="platform--{{ s.name | slugify }}" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">{%- include icon.html name=s.name -%}</a></li>
   {%- endif -%}
 {%- endfor -%}
 </ul>
