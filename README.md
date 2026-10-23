@@ -6,7 +6,7 @@ The site is just a **single long page**, with each section declared in a Markdow
 
 | Section | File | What you edit there |
 |---|---|---|
-| Top (`/`) | `pages/home.md` | your name, the "Check out my music" button, background picture, scroll text |
+| Home (top) (`/`) | `pages/home.md` | your name, the "Check out my music" button, background picture, scroll text |
 | Music (`/music`) | `pages/music.md` | the section heading. Each release is its own file in `pages/music/` (see below) |
 | A release (`/music/stank-face`) | `pages/music/stank-face.md` | cover, type, date, the story (plain Markdown), `tracks:` and `links:` |
 | Live! (`/live`) | `pages/live.md` | the `shows:` list. Past dates move to "Past gigs" by themselves |
@@ -24,6 +24,7 @@ The site is just a **single long page**, with each section declared in a Markdow
 - **Mailing list:** paste your provider's form action URL (Mailchimp, Buttondown, Brevo, Formspree…) into `mailing_list.action` in `_config.yml`.
 
 ### License
-Used this repo as a starting point: [*jekyll-theme-console*](https://github.com/b2a3e8/jekyll-theme-console)*,* which is [MIT Licensed](https://github.com/b2a3e8/jekyll-theme-console/blob/master/LICENSE.txt). All rights reserved regarding its original files.  
+Used this repo as a starting point: [*jekyll-theme-console*](https://github.com/b2a3e8/jekyll-theme-console)*,* which is [MIT licensed](https://github.com/b2a3e8/jekyll-theme-console/blob/master/LICENSE.txt).  
+All rights reserved regarding its original files.  
   
 Concerning the current repository: *(C) 2026 Andrea Benini - [MIT License](/LICENSE).*
