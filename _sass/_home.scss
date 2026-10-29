@@ -11,15 +11,15 @@
   content: ""; position: absolute; z-index: 1; top: -12%; height: 150%; width: 90vh; pointer-events: none;
   transform-origin: 50% 0; will-change: transform;
   background: conic-gradient(at 50% 0, transparent 166deg, var(--beam) 180deg, transparent 194deg);
-  -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 92%);
-          mask-image: linear-gradient(to bottom, #000 10%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 92%);
 }
 .hero__media::before {
-  --beam: rgba(115, 194, 251, .26); left: calc(28% - 45vh);
+  --beam: rgba(115, 194, 251, .30); left: calc(28% - 45vh);
   animation: stage-swing 19s ease-in-out -4s infinite alternate;
 }
 .hero__media::after {
-  --beam: rgba(234, 243, 251, .13); left: calc(74% - 45vh);
+  --beam: rgba(115, 194, 251, .35); left: calc(74% - 45vh);
   animation: stage-swing 27s ease-in-out -15s infinite alternate-reverse;
 }
 .hero.is-offscreen .hero__media::before, .hero.is-offscreen .hero__media::after,

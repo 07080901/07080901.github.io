@@ -8,6 +8,6 @@ permalink: /
 headline: 'Andrea “Ben” Benini'
 button_text: "Check out my music"
 button_section: music                   # where the button scrolls to
-hero_image: /assets/img/home/hero.svg   # big background picture (1920x1080 JPG works best)
+hero_image: /assets/img/home/home.jpg   # big background picture (1920x1080 JPG works best)
 scroll_text: "Scroll for more"
 ---
