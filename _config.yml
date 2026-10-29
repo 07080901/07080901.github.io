@@ -12,7 +12,7 @@ logo: /assets/img/logo/ben.png          # big version (intro animation)
 logo_small: /assets/img/logo/ben-480.png  # header version
 
 # --- GitHub Pages URL ------------------------------------------
-url: "https://benini.farted.net"
+url: "https://benini.awiki.org"
 baseurl: ""
 
 # --- Intro animation (home page only) --------------------------
