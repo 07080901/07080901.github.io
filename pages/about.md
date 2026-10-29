@@ -4,7 +4,7 @@ section: about
 title: About
 permalink: /about
 subtitle: "Blues · Funk · Make guitar mainstream again"
-portrait: /assets/img/about/portrait.svg   # your photo (portrait, ~900x1200)
+portrait: /assets/img/about/portrait.jpg   # your photo (portrait, ~900x1200)
 ---
 
 ## Hi, I'm Ben.

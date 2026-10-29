@@ -1,16 +1,16 @@
 ---
 # RELEASE PAGE  →  /music/stank-face  (the address comes from the file name)
-title: "Stank Face"
+title: "LIVE! at Pistoia Blues Festival"
 type: "Single"
 date: 15/05/2026          # release date (DD/MM/YYYY): sets the order on /music
-cover: /assets/img/music/cover-1.svg   # square image (1000x1000 JPG works best)
+cover: /assets/img/music/cover1.jpg   # square image (1000x1000 JPG works best)
 # ------------------------------------------------------------------
 # TRACKLIST — one line per song, in order. length is optional.
 # ------------------------------------------------------------------
 tracks:
-  - title: "Stank Face"
+  - title: "Untitled (How Does It Feel)"
     length: "3:41"
-  - title: "Stank Face (Live at Exwide)"
+  - title: "Untitled (How Does It Feel) - Live at Pistoia Blues Festival, May 15 2026"
     length: "5:12"
 # ------------------------------------------------------------------
 # WHERE TO LISTEN — every play button jumps down to these.
@@ -39,7 +39,7 @@ links:
 # ------------------------------------------------------------------
 ---
 
-## Why this one
+## Our highest milestone! Pistoia!
 
 It started as a warm-up riff at a jam in Pisa. The drummer locked in, the bass player grinned, and the whole room pulled the face that gave this song its name. We kept playing it at soundcheck until it stopped being a warm-up.
 
@@ -47,4 +47,4 @@ We cut it live in one room, no click, two takes. The second take had a wrong not
 
 ## What's on it
 
-The studio cut, plus the full jam from Exwide Jazz Club, solo and all, for anyone who wants to hear where it came from.
+Studio cut, plus the full jam from Exwide Jazz Club, solo and all, for anyone who wants to hear where it came from.

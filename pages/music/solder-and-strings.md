@@ -3,7 +3,7 @@
 title: "Solder & Strings"
 type: "EP"
 date: 20/09/2025          # release date (DD/MM/YYYY): sets the order on /music
-cover: /assets/img/music/cover-2.svg   # square image (1000x1000 JPG works best)
+cover: /assets/img/music/cover2.jpg   # square image (1000x1000 JPG works best)
 # ------------------------------------------------------------------
 # TRACKLIST — one line per song, in order. length is optional.
 # ------------------------------------------------------------------
