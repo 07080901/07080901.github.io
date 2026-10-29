@@ -6,16 +6,16 @@ permalink: /videos
 subtitle: "Placeholder videos: swap in your own"
 # ------------------------------------------------------------------
 # VIDEOS — youtube_id is the part after "watch?v=" (or after youtu.be/)
-#   https://www.youtube.com/watch?v=5c21kGCgaTc  →  5c21kGCgaTc
+#   https://www.youtube.com/watch?v=82Bx4OfWQ_Q  →  82Bx4OfWQ_Q
 # The thumbnail comes from YouTube automatically.
 # ------------------------------------------------------------------
 videos:
-  - title: "Funk masterclass: six riffs from one groove"
-    youtube_id: "5c21kGCgaTc"
+  - title: "John Mayer recording a solo"
+    youtube_id: "82Bx4OfWQ_Q"
 
-  - title: "Blues masterclass: from gospel moans to the Chicago shuffle"
-    youtube_id: "4rQ-vp6cirI"
+  - title: "Stevie Ray Vaughan - Live at El Mocambo"
+    youtube_id: "vfiI6rajurg"
 
-  - title: "Jazz blues comping tips"
-    youtube_id: "DeUwLiExHC8"
+  - title: "Eric Clapton Live: Have You Ever Loved A Woman"
+    youtube_id: "30j-MewhIhs"
 ---
