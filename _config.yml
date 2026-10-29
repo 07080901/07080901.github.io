@@ -98,3 +98,6 @@ exclude:
   - LICENSE.txt
   - vendor
   - .bundle
+  - Dockerfile
+  - docker-compose.yml
+  - .dockerignore
