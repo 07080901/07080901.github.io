@@ -28,11 +28,11 @@ Regarding the current state of commercial music and pop culture: in **mainstream
 Not to be mistaken with *not-so-known* music! Today, objectively, there are so many good artists that bring something very valuable to the table and most of the time they don't reach an audience as big as they deserve.  
 This is entirely due to corporations controlling the media we consume, without letting quality material get out to everybody.
 
-Analyzing instead smaller contexts, where corporations and record labeles do not count as much, genres that are considered *non-mainstream* are **widely appreciated** by the young public, also inside that reality the guitar is huge! This tells us that everyday people do like **authentic music**: that's what matters.  
+Analyzing instead smaller contexts, where corporations and record labels do not count as much, genres that are considered *non-mainstream* are **widely appreciated** by the young public, also inside that reality the guitar is huge! This tells us that everyday people do like **authentic music**: that's what matters.  
 I want to bring that same excitement, along with the presence of the guitar, to the everybody's ears.
 Let's change what's considered pop nowadays. Let's make it real!
 
 ## Booking
 Want me at your pub, club, or you just wanna jam?  
-Email me here [booking@example.com](mailto:booking@example.com).  
-Or DM me on [Instagram](https://instagram.com/benini.guitar)!
+Email me here [booking@example.com](mailto:booking@example.com)  
+or DM me on [Instagram](https://instagram.com/benini.guitar)!
