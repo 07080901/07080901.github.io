@@ -3,7 +3,7 @@ layout: home     # same one-page layout; opens scrolled to this section
 section: videos
 title: Videos
 permalink: /videos
-subtitle: "Placeholder videos: swap in your own"
+subtitle: "Spicy stuff, handpicked for you"
 # ------------------------------------------------------------------
 # VIDEOS — youtube_id is the part after "watch?v=" (or after youtu.be/)
 #   https://www.youtube.com/watch?v=82Bx4OfWQ_Q  →  82Bx4OfWQ_Q

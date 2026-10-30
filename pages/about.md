@@ -3,22 +3,36 @@ layout: home     # same one-page layout; opens scrolled to this section
 section: about
 title: About
 permalink: /about
-subtitle: "Blues · Funk · Make guitar mainstream again"
+subtitle: "Obsessed with blues, no doubt"
 portrait: /assets/img/about/portrait.jpg   # your photo (portrait, ~900x1200)
 ---
 
-## Hi, I'm Ben.
+## Call me Ben.
+I'm Andrea Benini, a **blues guitarist** who tries to play **funk**.  
+I play many genres like afrobeat, reggae but also punk, rock & a lot more:  
+hit me up for anything!
 
-I'm Andrea Benini, a blues guitarist with a serious funk habit, born in 2005. I grew up on riffs that are older than my parents and grooves that make your face do the stank face before your brain catches up.
 
-## The nerd part
+## What I'm best at
+Tasty solos for any genre, also stanky rithm guitar is my specialty.  
+I learn fast and that's what matters!
 
-I'm a techie at heart. When I'm not playing, the soldering iron is usually warm, I'm writing classical music with virtual instruments (VSTs), or I'm building a videogame on the side. Wires, code, strings: it's all the same itch.
+## Philosophy
+**Making the guitar mainstream** along bringing **blues to my generation** are my most profoundly felt objectives.  
 
-## The mission
+In the early 1980s the blues genre was falling out of fashion, it was considered by most outdated: during that same period many artists like Stevie Ray Vaughan, the same way as Jimi Hendrix did during the late 60s, **energized the blues** and made it **popular to his generation**.  
+My mission is, using a completely new and different sound, to achieve the same effect for my generation: to **renovate the blues genre one more time**, finding a way to make it reach young folks like myself.  
+As an awful lot of musicians have noted to this day, the blues is **full of gems** to be discovered! Let's bring them to the public!
+  
+Regarding the current state of commercial music and pop culture: in **mainstream media** not only genres are mostly plain, uninspiring and lacking variation but also the guitar is not as widely considered as it used to be!  
+Not to be mistaken with *not-so-known* music! Today, objectively, there are so many good artists that bring something very valuable to the table and most of the time they don't reach an audience as big as they deserve.  
+This is 100% due to corporations controlling the media we consume, without letting quality material get out to everybody.
 
-**Make guitar mainstream again** and bring the blues closer to my generation. The guitar isn't a museum piece. It's loud, it's alive, and it belongs in the room where people my age actually hang out.
+Analyzing instead smaller contexts, where corps and record lables do not count as much, genres that are considered *non-mainstream* are **widely appreaciated** by the young public, also inside that reality the guitar is massive! This tells us that everyday people do like **authentic music**: that's what matters.  
+I want to bring that same excitment, along the presence of the guitar, to the ears of everybody people.
+Let's change what's considered pop nowadays. Let's make it real!
 
 ## Booking
-
-Pubs, clubs, jam nights: write to [booking@example.com](mailto:booking@example.com).
+Want me in your pub, club, or you just wanna jam?  
+Email me here [booking@example.com](mailto:booking@example.com).  
+Or DM me on [Instagram](https://instagram.com/benini.guitar)!
