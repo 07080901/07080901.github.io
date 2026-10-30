@@ -28,8 +28,8 @@ My mission is, using a completely new and different sound, to achieve the same e
 As countless musicians have noted to this day, the blues is **full of gems** to be discovered! Let's bring them to the public!
   
 Regarding the current state of commercial music and pop culture: in **mainstream media** not only a big chunk of the releases are plain, uninspiring and lacking variation but also the guitar is not as widely considered as it used to be!  
-Not to be mistaken with *not-so-known* music! Today, objectively, there are so many good artists that bring something very valuable to the table and most of the time they don't reach an audience as big as they deserve.  
-This is entirely due to corporations and rich individuals controlling the media we consume, without letting quality material get out to everybody.
+Not to be mistaken with *not-so-known* music!  
+Today, objectively, there are so many talented artists that bring something very valuable to the table and most of the time they don't reach an audience as big as they deserve: this is entirely due to corporations and rich individuals controlling the media we consume, without letting quality material get out to everybody.
 
-Analyzing instead smaller contexts, where corporations and record labels do not count as much, genres that are considered *non-mainstream* are **widely appreciated** by the young public, also inside that reality the guitar is huge! This tells us that everyday people do like **authentic music** and that's what matters. I want to bring that same excitement, along with the presence of the guitar, to the everybody's ears.
+Analyzing instead smaller contexts considering for example local events, where corporations and record labels do not count as much, in there genres that are considered *non-mainstream* are **widely appreciated** by the young public, also inside that reality the guitar is huge! This tells us that everyday people do like **authentic music** and that's what matters. I want to bring that same excitement, along with the presence of the guitar, to the everybody's ears.  
 Let's change what's considered pop nowadays. Let's make it real!
