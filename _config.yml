@@ -67,7 +67,7 @@ mailing_list:
   action: ""
   email_field_name: "email"   # Mailchimp uses "EMAIL"
   heading: "Join the mailing list"
-  text: "New songs, gigs and the occasional broken string. No spam."
+  text: "Live events, new songs & posts. No spam."
 
 # --- Build settings (no need to touch) -------------------------
 timezone: Europe/Rome
