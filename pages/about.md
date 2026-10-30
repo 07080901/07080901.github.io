@@ -35,4 +35,4 @@ Let's change what's considered pop nowadays. Let's make it real!
 ## Booking
 Want me at your pub, club, or you just wanna jam?  
 Email me here [booking@example.com](mailto:booking@example.com)  
-or DM me on [Instagram](https://instagram.com/benini.guitar)!
+or DM me on [Instagram](https://instagram.com/benini.guitar){:target="_blank" rel="noopener"}!
