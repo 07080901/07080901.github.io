@@ -9,12 +9,11 @@ portrait: /assets/img/about/portrait.jpg   # your photo (portrait, ~900x1200)
 
 ## Call me Ben.
 I'm Andrea Benini, a **blues guitarist** who has a go at **funk**.  
-I play many genres like afrobeat, reggae but also punk, rock & a lot more:  
-hit me up for anything!
+I play many genres like afrobeat, reggae but also punk, rock & a lot more: hit me up for anything!
 
 ### What I'm best at
-Tasty solos for any genre, also groovy rythm guitar is my specialty. Stank face included.  
-I'm a quick learner and that's what counts.
+Tasty and thoughtful solos, rearrangement of songs and a groovy rythm section are my specialties. Stank face included.  
+I'm a quick learner and adapting to different genres is a challenge I appreciate.
 
 ## Contact me!
 Want me at your pub, club, or you just wanna jam?  
