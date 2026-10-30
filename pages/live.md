@@ -42,4 +42,4 @@ shows:
     note: "Pure Blues night, can't ask for more."
 ---
 
-Want some blues and funk in your pub? Write to [booking@example.com](mailto:booking@example.com).
+Want me to play at your location? Write to [booking@example.com](mailto:booking@example.com).
